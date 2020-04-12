@@ -46,18 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="描述">
-<meta property="og:type" content="website">
-<meta property="og:title" content="博客园">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="最近回顾了python爬虫,学习了如何抓包（Firefox、Fiddler）。同时也把python中用requests库爬取网页的脚本模板记录在此，代码源自mooc中北理的相关网课：  requests库1234567891011import requestsurl &#x3D; &quot;....&quot;try:    kv &#x3D; &amp;#123;&quot;user-agent&quot;:&quot;Mozilla&#x2F;5.0&quot;&amp;#125;    r &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中使用requests库爬取网页的脚本模板记录">
+<meta property="og:url" content="http://yoursite.com/2020/04/12/python-requests-record/index.html">
 <meta property="og:site_name" content="博客园">
-<meta property="og:description" content="描述">
+<meta property="og:description" content="最近回顾了python爬虫,学习了如何抓包（Firefox、Fiddler）。同时也把python中用requests库爬取网页的脚本模板记录在此，代码源自mooc中北理的相关网课：  requests库1234567891011import requestsurl &#x3D; &quot;....&quot;try:    kv &#x3D; &amp;#123;&quot;user-agent&quot;:&quot;Mozilla&#x2F;5.0&quot;&amp;#125;    r &#x3D;">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-12T10:46:14.000Z">
+<meta property="article:modified_time" content="2020-04-12T11:15:10.497Z">
 <meta property="article:author" content="giuyyt">
-<meta property="article:tag" content="技术文章">
+<meta property="article:tag" content="python爬虫、requests库">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/">
+<link rel="canonical" href="http://yoursite.com/2020/04/12/python-requests-record/">
 
 
 <script id="page-configurations">
@@ -65,11 +67,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>Archive | 博客园</title>
+  <title>python中使用requests库爬取网页的脚本模板记录 | 博客园</title>
   
 
 
@@ -164,169 +166,82 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 7 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/python-requests-record/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python中使用requests库爬取网页的脚本模板记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-12 18:46:14 / Modified: 19:15:10" itemprop="dateCreated datePublished" datetime="2020-04-12T18:46:14+08:00">2020-04-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
+        <p>最近回顾了python爬虫,学习了如何抓包（Firefox、Fiddler）。同时也把python中用requests库爬取网页的脚本模板记录在此，代码源自mooc中北理的相关网课：</p>
+<hr>
+<h2 id="requests库"><a href="#requests库" class="headerlink" title="requests库"></a>requests库</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"...."</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    kv = &#123;<span class="string">"user-agent"</span>:<span class="string">"Mozilla/5.0"</span>&#125;</span><br><span class="line">    r = requests.get(url,headers = kv)</span><br><span class="line">    r.raise_for_status()</span><br><span class="line">    r.encoding = r.apparent_encoding</span><br><span class="line">    print(r.text[<span class="number">1000</span>:<span class="number">2000</span>])</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"爬取失败"</span>)</span><br></pre></td></tr></table></figure>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-12T18:46:14+08:00"
-              content="2020-04-12">
-          04-12
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python%E7%88%AC%E8%99%AB%E3%80%81requests%E5%BA%93/" rel="tag"># python爬虫、requests库</a>
+          </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/12/python-requests-record/" itemprop="url">
-            <span itemprop="name">python中使用requests库爬取网页的脚本模板记录</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-18T01:30:39+08:00"
-              content="2020-03-18">
-          03-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/18/article-help/" itemprop="url">
-            <span itemprop="name">hexo使用备忘录</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-18T00:59:02+08:00"
-              content="2020-03-18">
-          03-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/18/article1/" itemprop="url">
-            <span itemprop="name">Java初学的一些笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-18T00:59:02+08:00"
-              content="2020-03-18">
-          03-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/18/article/" itemprop="url">
-            <span itemprop="name">matlab小程序简记：用于矩阵或向量，提取出前N大的元素并返回其大小和位置</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-04T12:51:04+08:00"
-              content="2020-02-04">
-          02-04
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/02/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" itemprop="url">
-            <span itemprop="name">我的第一篇博客文章</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-04T12:41:07+08:00"
-              content="2020-02-04">
-          02-04
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/02/04/no-title/" itemprop="url">
-            <span itemprop="name">no title</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-04T12:35:08+08:00"
-              content="2020-02-04">
-          02-04
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/02/04/hello-world/" itemprop="url">
-            <span itemprop="name">Hello World</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+        
 
 
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/18/article-help/" rel="prev" title="hexo使用备忘录">
+      <i class="fa fa-chevron-left"></i> hexo使用备忘录
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -377,6 +292,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#requests库"><span class="nav-number">1.</span> <span class="nav-text">requests库</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
