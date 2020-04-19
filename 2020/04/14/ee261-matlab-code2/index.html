@@ -46,25 +46,25 @@
   };
 </script>
 
-  <meta name="description" content="本题是ee261中Problem Set 6的一道matlab代码题，主要用到了采样定理和混淆相关的知识。ee261相关知识点整理博客：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;TaigaCon&#x2F;p&#x2F;5079156.html  结果分析alpha&#x3D;0.99当alpha &#x3D; 0.99时，linear和nearest两种方法的结果都很不错，毕竟此时采样率还是基本符合采样定理的。 linear n">
+  <meta name="description" content="本题是ee261中Problem Set 6的一道matlab代码题，主要用到了采样定理和混淆相关的知识。ee261相关知识点整理博客：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;TaigaCon&#x2F;p&#x2F;5079156.html  结果分析alpha&#x3D;0.99当alpha &#x3D; 0.99时，linear和nearest两种方法的结果都很不错，毕竟此时采样率还是基本符合采样定理的。 linear">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ee261中的代码题（2）">
 <meta property="og:url" content="http://yoursite.com/2020/04/14/ee261-matlab-code2/index.html">
 <meta property="og:site_name" content="博客园">
-<meta property="og:description" content="本题是ee261中Problem Set 6的一道matlab代码题，主要用到了采样定理和混淆相关的知识。ee261相关知识点整理博客：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;TaigaCon&#x2F;p&#x2F;5079156.html  结果分析alpha&#x3D;0.99当alpha &#x3D; 0.99时，linear和nearest两种方法的结果都很不错，毕竟此时采样率还是基本符合采样定理的。 linear n">
+<meta property="og:description" content="本题是ee261中Problem Set 6的一道matlab代码题，主要用到了采样定理和混淆相关的知识。ee261相关知识点整理博客：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;TaigaCon&#x2F;p&#x2F;5079156.html  结果分析alpha&#x3D;0.99当alpha &#x3D; 0.99时，linear和nearest两种方法的结果都很不错，毕竟此时采样率还是基本符合采样定理的。 linear">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2020/04/14/XwTe2HplK9WS8OG.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/14/lqGXAwph1RfkM7J.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/14/SnhHvCZksmEpcjI.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/14/NmWqAyhYp59Uc6b.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/14/Bg9NnsuPxZQGlHz.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/14/HEFjcANv4SVqamo.png">
+<meta property="og:image" content="http://yoursite.com/.com//04/14/ee261-matlab-code2/alpha=0.99_linear.PNG">
+<meta property="og:image" content="http://yoursite.com/.com//04/14/ee261-matlab-code2/alpha=0.99_nearest.PNG">
+<meta property="og:image" content="http://yoursite.com/.com//04/14/ee261-matlab-code2/alpha=0.95_linear.PNG">
+<meta property="og:image" content="http://yoursite.com/.com//04/14/ee261-matlab-code2/alpha=0.95_nearest.PNG">
+<meta property="og:image" content="http://yoursite.com/.com//04/14/ee261-matlab-code2/alpha=0.9_linear.PNG">
+<meta property="og:image" content="http://yoursite.com/.com//04/14/ee261-matlab-code2/alpha=0.9_nearest.PNG">
 <meta property="article:published_time" content="2020-04-14T05:19:14.000Z">
-<meta property="article:modified_time" content="2020-04-14T08:35:19.681Z">
+<meta property="article:modified_time" content="2020-04-19T03:51:15.523Z">
 <meta property="article:author" content="giuyyt">
 <meta property="article:tag" content="傅里叶变换、图像处理、采样定理、混淆">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2020/04/14/XwTe2HplK9WS8OG.png">
+<meta name="twitter:image" content="http://yoursite.com/.com//04/14/ee261-matlab-code2/alpha=0.99_linear.PNG">
 
 <link rel="canonical" href="http://yoursite.com/2020/04/14/ee261-matlab-code2/">
 
@@ -200,10 +200,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-04-14 13:19:14 / Modified: 16:35:19" itemprop="dateCreated datePublished" datetime="2020-04-14T13:19:14+08:00">2020-04-14</time>
+              <time title="Created: 2020-04-14 13:19:14" itemprop="dateCreated datePublished" datetime="2020-04-14T13:19:14+08:00">2020-04-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-19 11:51:15" itemprop="dateModified" datetime="2020-04-19T11:51:15+08:00">2020-04-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -230,14 +236,23 @@
         <p>本题是ee261中Problem Set 6的一道matlab代码题，主要用到了采样定理和混淆相关的知识。<br>ee261相关知识点整理博客：<a href="https://www.cnblogs.com/TaigaCon/p/5079156.html" target="_blank" rel="noopener">https://www.cnblogs.com/TaigaCon/p/5079156.html</a></p>
 <hr>
 <h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><h3 id="alpha-0-99"><a href="#alpha-0-99" class="headerlink" title="alpha=0.99"></a>alpha=0.99</h3><p>当alpha = 0.99时，linear和nearest两种方法的结果都很不错，毕竟此时采样率还是基本符合采样定理的。</p>
-<h4 id="linear"><a href="#linear" class="headerlink" title="linear"></a>linear</h4><p><img src="https://i.loli.net/2020/04/14/XwTe2HplK9WS8OG.png" alt="img_alpha_0.99_linear.PNG"></p>
-<h4 id="nearest"><a href="#nearest" class="headerlink" title="nearest"></a>nearest</h4><p><img src="https://i.loli.net/2020/04/14/lqGXAwph1RfkM7J.png" alt="img_alpha_0.99_nearest.PNG"></p>
+<h4 id="linear"><a href="#linear" class="headerlink" title="linear"></a>linear</h4><img src="/.com//04/14/ee261-matlab-code2/alpha=0.99_linear.PNG" class title="alpha&#x3D;0.99_linear">
+
+<h4 id="nearest"><a href="#nearest" class="headerlink" title="nearest"></a>nearest</h4><img src="/.com//04/14/ee261-matlab-code2/alpha=0.99_nearest.PNG" class title="alpha&#x3D;0.99_nearest">
+
 <h3 id="alpha-0-95"><a href="#alpha-0-95" class="headerlink" title="alpha=0.95"></a>alpha=0.95</h3><p>alpha=0.95时，可以发现图片已经受到混淆的严重影响了，“nearest”下图片体现出了“像素风”，也就是说图片的精细化程度下降很多；<br>而“linear”相比于“nearest”，它的边缘要更模糊一些。推测是因为linear相比nearest更加平均，过渡更均匀。</p>
-<h4 id="linear-1"><a href="#linear-1" class="headerlink" title="linear"></a>linear</h4><p><img src="https://i.loli.net/2020/04/14/SnhHvCZksmEpcjI.png" alt="img_alpha_0.95_linear.PNG"></p>
-<h4 id="nearest-1"><a href="#nearest-1" class="headerlink" title="nearest"></a>nearest</h4><p><img src="https://i.loli.net/2020/04/14/NmWqAyhYp59Uc6b.png" alt="img_alpha_0.95_nearest.PNG"></p>
+<h4 id="linear-1"><a href="#linear-1" class="headerlink" title="linear"></a>linear</h4><img src="/.com//04/14/ee261-matlab-code2/alpha=0.95_linear.PNG" class title="alpha&#x3D;0.95_linear">
+
+<h4 id="nearest-1"><a href="#nearest-1" class="headerlink" title="nearest"></a>nearest</h4><img src="/.com//04/14/ee261-matlab-code2/alpha=0.95_nearest.PNG" class title="alpha&#x3D;0.95_nearest">
+
 <h3 id="alpha-0-90"><a href="#alpha-0-90" class="headerlink" title="alpha=0.90"></a>alpha=0.90</h3><p>混淆的作用在这里比alpha=0.95更要严重，图片已经面目全非。当然，linear依然比nearest模糊。</p>
-<h4 id="linear-2"><a href="#linear-2" class="headerlink" title="linear"></a>linear</h4><p><img src="https://i.loli.net/2020/04/14/Bg9NnsuPxZQGlHz.png" alt="img_alpha_0.90_linear.PNG"></p>
-<h4 id="nearest-2"><a href="#nearest-2" class="headerlink" title="nearest"></a>nearest</h4><p><img src="https://i.loli.net/2020/04/14/HEFjcANv4SVqamo.png" alt="img_alpha_0.90_nearest.PNG"></p>
+<h4 id="linear-2"><a href="#linear-2" class="headerlink" title="linear"></a>linear</h4><img src="/.com//04/14/ee261-matlab-code2/alpha=0.9_linear.PNG" class title="alpha&#x3D;0.9_linear">
+
+<h4 id="nearest-2"><a href="#nearest-2" class="headerlink" title="nearest"></a>nearest</h4><img src="/.com//04/14/ee261-matlab-code2/alpha=0.9_nearest.PNG" class title="alpha&#x3D;0.9_nearest">
+
+
+
+
 <h2 id="matlab代码"><a href="#matlab代码" class="headerlink" title="matlab代码"></a>matlab代码</h2><p>代码中alpha=0.90，插值类型“nearest”，若要修改这两个参数，修改26行和59行的参数值即可。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%https://see.stanford.edu/materials/lsoftaee261/PS-6-2007.pdf</span></span><br><span class="line"><span class="comment">%第五题，matlab编程题</span></span><br><span class="line"><span class="comment">%题目大意：给定一张图片，采样频率的改变、插值方式对原图像的影响（和采样定理有关）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%读取图片</span></span><br><span class="line">clc;clear;</span><br><span class="line">img = imread(<span class="string">'man.gif'</span>);</span><br><span class="line">[row,col] = <span class="built_in">size</span>(img);</span><br><span class="line"><span class="comment">% imshow(img);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%第一步，从256*256转化成1*256^2，并将像素值由uint8转化为double，保证归一化</span></span><br><span class="line">imgVector = [];</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:row</span><br><span class="line">    imgVector = [imgVector,img(<span class="built_in">i</span>,:)];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">imgVector = double(imgVector)/<span class="number">256</span>;</span><br><span class="line">vectorLength = <span class="built_in">length</span>(imgVector);</span><br><span class="line"></span><br><span class="line"><span class="comment">%第二步，fft，保证0点在中心</span></span><br><span class="line">imgVectorFren = fftshift(fft(imgVector));</span><br><span class="line">fValues = -vectorLength/<span class="number">2</span>:<span class="number">1</span>:vectorLength/<span class="number">2</span><span class="number">-1</span>;</span><br><span class="line">zeroPoint = <span class="built_in">length</span>(fValues)/<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line"><span class="built_in">plot</span>(fValues,imgVectorFren);</span><br><span class="line"></span><br><span class="line"><span class="comment">%第三步：求不同alpha值时的带宽</span></span><br><span class="line">alpha = <span class="number">0.90</span>;<span class="comment">%0.9、0.95、0.99</span></span><br><span class="line">energyTotal = <span class="number">0</span>;<span class="comment">%代表信号总能量</span></span><br><span class="line">energyP = <span class="built_in">abs</span>(imgVectorFren(zeroPoint))^<span class="number">2</span>;<span class="comment">%代表近似带宽内信号总能量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%计算信号总能量</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:vectorLength</span><br><span class="line">    energyTotal = energyTotal + <span class="built_in">abs</span>(imgVectorFren(<span class="built_in">i</span>))^<span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%计算近似带宽</span></span><br><span class="line">p = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(energyP/energyTotal&lt;alpha)</span><br><span class="line">    p = p+<span class="number">1</span>;</span><br><span class="line">    energyP = energyP+<span class="built_in">abs</span>(imgVectorFren(p+zeroPoint))^<span class="number">2</span>+<span class="built_in">abs</span>(imgVectorFren(-p+zeroPoint))^<span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%第四步：求得近似带宽后，根据采样定理，以奈奎斯特采样频率取对原时域信号采样</span></span><br><span class="line">rate = p*<span class="number">2</span>/vectorLength;</span><br><span class="line">interval = <span class="built_in">floor</span>(<span class="number">1</span>/rate);</span><br><span class="line"></span><br><span class="line">indexTotal = <span class="number">1</span>;</span><br><span class="line">vectorSampled = [];</span><br><span class="line">indexSampled = [];</span><br><span class="line"><span class="keyword">while</span>(indexTotal&lt;=vectorLength)</span><br><span class="line">    indexSampled = [indexSampled,indexTotal];</span><br><span class="line">    vectorSampled = [vectorSampled,imgVector(indexTotal)];</span><br><span class="line">    </span><br><span class="line">    indexTotal = indexTotal + interval;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%第五步，对采样后的时域信号进行插值，插值方式两种：直线、复制近邻的值。</span></span><br><span class="line">indexInterped = <span class="number">1</span>:vectorLength;</span><br><span class="line">vectorInterped = interp1(indexSampled,vectorSampled,indexInterped,<span class="string">'nearest'</span>); <span class="comment">%直线：linear；最近邻：nearest </span></span><br><span class="line"></span><br><span class="line"><span class="comment">%第六步，将vectorInterped复原为图像，并与原图进行对比</span></span><br><span class="line">imgInterped = [];</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">0</span>:row<span class="number">-1</span></span><br><span class="line">    imgInterped = [imgInterped;vectorInterped(<span class="number">1</span>,<span class="built_in">i</span>*col+<span class="number">1</span>:(<span class="built_in">i</span>+<span class="number">1</span>)*col)];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>);  </span><br><span class="line">imshow(img);</span><br><span class="line">title(<span class="string">'imgOri'</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>);  </span><br><span class="line">imshow(imgInterped);</span><br><span class="line">title(<span class="string">'imgInterped'</span>);</span><br></pre></td></tr></table></figure>
     </div>
