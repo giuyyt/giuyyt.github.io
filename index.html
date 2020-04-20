@@ -169,6 +169,83 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/redis-use-method/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/redis-use-method/" class="post-title-link" itemprop="url">redis数据库使用相关</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-20 11:20:48 / Modified: 11:31:10" itemprop="dateCreated datePublished" datetime="2020-04-20T11:20:48+08:00">2020-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库使用相关</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>长期更新。</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>redis的安装以及密码等的设置可以参考：<a href="https://www.w3cschool.cn/redis/redis-install.html" target="_blank" rel="noopener">https://www.w3cschool.cn/redis/redis-install.html</a></p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>首先打开一个cmd，将文件路径调整到redis的文件夹的路径下，然后输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server.exe redis.windows.conf</span><br></pre></td></tr></table></figure>
+
+<p>这时redis的客户端已经打开了，这个cmd的窗口不要关闭，转而打开另一个cmd窗口,将路径调整到redis文件夹下，并输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli</span><br></pre></td></tr></table></figure>
+<p>此时就可以输入命令来和redis客户端交互了，但是注意第一个cmd一定不要关掉，否则就无法交互了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/ee261-matlab-code2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -200,7 +277,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-19 23:55:24" itemprop="dateModified" datetime="2020-04-19T23:55:24+08:00">2020-04-19</time>
+                <time title="Modified: 2020-04-20 11:17:00" itemprop="dateModified" datetime="2020-04-20T11:17:00+08:00">2020-04-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,8 +315,6 @@
 <h4 id="nearest-2"><a href="#nearest-2" class="headerlink" title="nearest"></a>nearest</h4><p><img src="https://gitee.com/giuyyt/hexo_blog_image/raw/master/ee261-matlab-code2/alpha=0.9_nearest.PNG" alt="alpha=0.9_nearest"></p>
 <h2 id="matlab代码"><a href="#matlab代码" class="headerlink" title="matlab代码"></a>matlab代码</h2><p>代码中alpha=0.90，插值类型“nearest”，若要修改这两个参数，修改26行和59行的参数值即可。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%https://see.stanford.edu/materials/lsoftaee261/PS-6-2007.pdf</span></span><br><span class="line"><span class="comment">%第五题，matlab编程题</span></span><br><span class="line"><span class="comment">%题目大意：给定一张图片，采样频率的改变、插值方式对原图像的影响（和采样定理有关）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%读取图片</span></span><br><span class="line">clc;clear;</span><br><span class="line">img = imread(<span class="string">'man.gif'</span>);</span><br><span class="line">[row,col] = <span class="built_in">size</span>(img);</span><br><span class="line"><span class="comment">% imshow(img);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%第一步，从256*256转化成1*256^2，并将像素值由uint8转化为double，保证归一化</span></span><br><span class="line">imgVector = [];</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:row</span><br><span class="line">    imgVector = [imgVector,img(<span class="built_in">i</span>,:)];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">imgVector = double(imgVector)/<span class="number">256</span>;</span><br><span class="line">vectorLength = <span class="built_in">length</span>(imgVector);</span><br><span class="line"></span><br><span class="line"><span class="comment">%第二步，fft，保证0点在中心</span></span><br><span class="line">imgVectorFren = fftshift(fft(imgVector));</span><br><span class="line">fValues = -vectorLength/<span class="number">2</span>:<span class="number">1</span>:vectorLength/<span class="number">2</span><span class="number">-1</span>;</span><br><span class="line">zeroPoint = <span class="built_in">length</span>(fValues)/<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line"><span class="built_in">plot</span>(fValues,imgVectorFren);</span><br><span class="line"></span><br><span class="line"><span class="comment">%第三步：求不同alpha值时的带宽</span></span><br><span class="line">alpha = <span class="number">0.90</span>;<span class="comment">%0.9、0.95、0.99</span></span><br><span class="line">energyTotal = <span class="number">0</span>;<span class="comment">%代表信号总能量</span></span><br><span class="line">energyP = <span class="built_in">abs</span>(imgVectorFren(zeroPoint))^<span class="number">2</span>;<span class="comment">%代表近似带宽内信号总能量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%计算信号总能量</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:vectorLength</span><br><span class="line">    energyTotal = energyTotal + <span class="built_in">abs</span>(imgVectorFren(<span class="built_in">i</span>))^<span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%计算近似带宽</span></span><br><span class="line">p = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(energyP/energyTotal&lt;alpha)</span><br><span class="line">    p = p+<span class="number">1</span>;</span><br><span class="line">    energyP = energyP+<span class="built_in">abs</span>(imgVectorFren(p+zeroPoint))^<span class="number">2</span>+<span class="built_in">abs</span>(imgVectorFren(-p+zeroPoint))^<span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%第四步：求得近似带宽后，根据采样定理，以奈奎斯特采样频率取对原时域信号采样</span></span><br><span class="line">rate = p*<span class="number">2</span>/vectorLength;</span><br><span class="line">interval = <span class="built_in">floor</span>(<span class="number">1</span>/rate);</span><br><span class="line"></span><br><span class="line">indexTotal = <span class="number">1</span>;</span><br><span class="line">vectorSampled = [];</span><br><span class="line">indexSampled = [];</span><br><span class="line"><span class="keyword">while</span>(indexTotal&lt;=vectorLength)</span><br><span class="line">    indexSampled = [indexSampled,indexTotal];</span><br><span class="line">    vectorSampled = [vectorSampled,imgVector(indexTotal)];</span><br><span class="line">    </span><br><span class="line">    indexTotal = indexTotal + interval;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%第五步，对采样后的时域信号进行插值，插值方式两种：直线、复制近邻的值。</span></span><br><span class="line">indexInterped = <span class="number">1</span>:vectorLength;</span><br><span class="line">vectorInterped = interp1(indexSampled,vectorSampled,indexInterped,<span class="string">'nearest'</span>); <span class="comment">%直线：linear；最近邻：nearest </span></span><br><span class="line"></span><br><span class="line"><span class="comment">%第六步，将vectorInterped复原为图像，并与原图进行对比</span></span><br><span class="line">imgInterped = [];</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">0</span>:row<span class="number">-1</span></span><br><span class="line">    imgInterped = [imgInterped;vectorInterped(<span class="number">1</span>,<span class="built_in">i</span>*col+<span class="number">1</span>:(<span class="built_in">i</span>+<span class="number">1</span>)*col)];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>);  </span><br><span class="line">imshow(img);</span><br><span class="line">title(<span class="string">'imgOri'</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>);  </span><br><span class="line">imshow(imgInterped);</span><br><span class="line">title(<span class="string">'imgInterped'</span>);</span><br></pre></td></tr></table></figure>
-
-<p>ee261-matlab-code2</p>
 
       
     </div>
@@ -361,9 +436,26 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-04-13 11:13:14 / Modified: 20:07:26" itemprop="dateCreated datePublished" datetime="2020-04-13T11:13:14+08:00">2020-04-13</time>
+              <time title="Created: 2020-04-13 11:13:14" itemprop="dateCreated datePublished" datetime="2020-04-13T11:13:14+08:00">2020-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-20 11:18:41" itemprop="dateModified" datetime="2020-04-20T11:18:41+08:00">2020-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">python爬虫</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -431,8 +523,19 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-13 11:12:12" itemprop="dateModified" datetime="2020-04-13T11:12:12+08:00">2020-04-13</time>
+                <time title="Modified: 2020-04-20 11:18:33" itemprop="dateModified" datetime="2020-04-20T11:18:33+08:00">2020-04-20</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">python爬虫</span>
+                  </a>
+                </span>
+            </span>
 
           
 
@@ -497,8 +600,19 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 00:00:57" itemprop="dateModified" datetime="2020-04-20T00:00:57+08:00">2020-04-20</time>
+                <time title="Modified: 2020-04-20 11:17:40" itemprop="dateModified" datetime="2020-04-20T11:17:40+08:00">2020-04-20</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo使用相关</span>
+                  </a>
+                </span>
+            </span>
 
           
 
@@ -519,72 +633,6 @@
 <hr>
 <h2 id="容易掉的坑"><a href="#容易掉的坑" class="headerlink" title="容易掉的坑"></a>容易掉的坑</h2><p>顶头的tags的冒号后打空格！（vscode中看到蓝色字和肉色字共存）</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/article/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/18/article/" class="post-title-link" itemprop="url">matlab小程序简记：用于矩阵或向量，提取出前N大的元素并返回其大小和位置</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:26:20" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天用matlab写了DIP中的大津算法和霍夫算法（直线），写后者时产生了这个衍生品，后来发现不用这个衍生品也可以写完Hough算法，但是个人认为这个函数还比较实用，所以记录在这里备忘。</p>
-<hr>
-<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[MaxValueVector,MaxIndexVector]</span> = <span class="title">SortNValues</span><span class="params">(Matrix,n)</span></span></span><br><span class="line"><span class="comment">%SortNValues 给定一个矩阵或者向量，排出前五个最大的数，返回这五个数的数量（从大到小，vector）以及位置</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MaxValueVector = <span class="built_in">zeros</span>(<span class="number">1</span>,n);</span><br><span class="line">MaxIndexVector = <span class="built_in">zeros</span>(<span class="number">2</span>,n);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">size</span>(Matrix,<span class="number">1</span>)==<span class="number">0</span>||<span class="built_in">size</span>(Matrix,<span class="number">2</span>)==<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n</span><br><span class="line">    MaxValueVector(<span class="number">1</span>,<span class="built_in">i</span>) = <span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>);</span><br><span class="line">    </span><br><span class="line">    [MaxIndexRow,MaxIndexCol] = <span class="built_in">find</span>(Matrix==<span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>));</span><br><span class="line">    </span><br><span class="line">    MaxIndexRow1 = <span class="number">0</span>;</span><br><span class="line">    MaxIndexCol1 = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">size</span>(MaxIndexRow,<span class="number">1</span>)~=<span class="number">1</span>||<span class="built_in">size</span>(MaxIndexCol,<span class="number">2</span>)~=<span class="number">1</span>)</span><br><span class="line">        MaxIndexRow1 = MaxIndexRow(<span class="number">1</span>);</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        MaxIndexRow1 = MaxIndexRow;</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    MaxIndexVector(:,<span class="built_in">i</span>) = [MaxIndexRow1;MaxIndexCol1];</span><br><span class="line">    Matrix(MaxIndexRow1,MaxIndexCol1) = -Matrix(MaxIndexRow1,MaxIndexCol1);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="简单的使用例"><a href="#简单的使用例" class="headerlink" title="简单的使用例"></a>简单的使用例</h2><hr>
-<h3 id="输入的是矩阵"><a href="#输入的是矩阵" class="headerlink" title="输入的是矩阵"></a>输入的是矩阵</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">b = <span class="number">2</span>:<span class="number">11</span>;</span><br><span class="line">c = [a;b];</span><br><span class="line">[m,n] = SortNValues(c,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [11,10,10,9,9]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    2,2,1,2,1;</span></span><br><span class="line"><span class="comment">%    10,9,10,8,9]</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="输入的是向量"><a href="#输入的是向量" class="headerlink" title="输入的是向量"></a>输入的是向量</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">[m,n] = SortNValues(a,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [10,9,8,7,6]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    1,1,1,1,1;</span></span><br><span class="line"><span class="comment">%    10,9,8,7,6]</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -663,6 +711,72 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.horstmann.corejava;</span><br></pre></td></tr></table></figure>
 <p>对应地，该类的.java和.class需要放在基目录下的com\horstmann\corejava中。</p>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/article/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/article/" class="post-title-link" itemprop="url">matlab小程序简记：用于矩阵或向量，提取出前N大的元素并返回其大小和位置</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:26:20" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天用matlab写了DIP中的大津算法和霍夫算法（直线），写后者时产生了这个衍生品，后来发现不用这个衍生品也可以写完Hough算法，但是个人认为这个函数还比较实用，所以记录在这里备忘。</p>
+<hr>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[MaxValueVector,MaxIndexVector]</span> = <span class="title">SortNValues</span><span class="params">(Matrix,n)</span></span></span><br><span class="line"><span class="comment">%SortNValues 给定一个矩阵或者向量，排出前五个最大的数，返回这五个数的数量（从大到小，vector）以及位置</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MaxValueVector = <span class="built_in">zeros</span>(<span class="number">1</span>,n);</span><br><span class="line">MaxIndexVector = <span class="built_in">zeros</span>(<span class="number">2</span>,n);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">size</span>(Matrix,<span class="number">1</span>)==<span class="number">0</span>||<span class="built_in">size</span>(Matrix,<span class="number">2</span>)==<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n</span><br><span class="line">    MaxValueVector(<span class="number">1</span>,<span class="built_in">i</span>) = <span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>);</span><br><span class="line">    </span><br><span class="line">    [MaxIndexRow,MaxIndexCol] = <span class="built_in">find</span>(Matrix==<span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>));</span><br><span class="line">    </span><br><span class="line">    MaxIndexRow1 = <span class="number">0</span>;</span><br><span class="line">    MaxIndexCol1 = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">size</span>(MaxIndexRow,<span class="number">1</span>)~=<span class="number">1</span>||<span class="built_in">size</span>(MaxIndexCol,<span class="number">2</span>)~=<span class="number">1</span>)</span><br><span class="line">        MaxIndexRow1 = MaxIndexRow(<span class="number">1</span>);</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        MaxIndexRow1 = MaxIndexRow;</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    MaxIndexVector(:,<span class="built_in">i</span>) = [MaxIndexRow1;MaxIndexCol1];</span><br><span class="line">    Matrix(MaxIndexRow1,MaxIndexCol1) = -Matrix(MaxIndexRow1,MaxIndexCol1);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="简单的使用例"><a href="#简单的使用例" class="headerlink" title="简单的使用例"></a>简单的使用例</h2><hr>
+<h3 id="输入的是矩阵"><a href="#输入的是矩阵" class="headerlink" title="输入的是矩阵"></a>输入的是矩阵</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">b = <span class="number">2</span>:<span class="number">11</span>;</span><br><span class="line">c = [a;b];</span><br><span class="line">[m,n] = SortNValues(c,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [11,10,10,9,9]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    2,2,1,2,1;</span></span><br><span class="line"><span class="comment">%    10,9,10,8,9]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="输入的是向量"><a href="#输入的是向量" class="headerlink" title="输入的是向量"></a>输入的是向量</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">[m,n] = SortNValues(a,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [10,9,8,7,6]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    1,1,1,1,1;</span></span><br><span class="line"><span class="comment">%    10,9,8,7,6]</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -798,87 +912,12 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/04/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-04 12:35:08" itemprop="dateCreated datePublished" datetime="2020-02-04T12:35:08+08:00">2020-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-18 00:45:49" itemprop="dateModified" datetime="2020-03-18T00:45:49+08:00">2020-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<p>每次发布时，使用 hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -943,17 +982,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
