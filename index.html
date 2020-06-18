@@ -171,6 +171,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/06/18/unity-new-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/18/unity-new-1/" class="post-title-link" itemprop="url">unity游戏开发入门笔记_1</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-18 13:07:55 / Modified: 16:14:53" itemprop="dateCreated datePublished" datetime="2020-06-18T13:07:55+08:00">2020-06-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">unity游戏开发</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参照了一个十分钟游戏制作挑战的视频：<a href="https://www.bilibili.com/video/BV1Ca4y1x7RP" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Ca4y1x7RP</a></p>
+<p>将一些技巧记录在此：</p>
+<p>1.Material作用（之一）：可以调整反弹系数，在物体和其发生碰撞并反弹时可以用到</p>
+<p>应用的地方：<br>![pic_1]](<a href="https://gitee.com/giuyyt/hexo_blog_image/raw/master/unity-new-1/1.PNG" target="_blank" rel="noopener">https://gitee.com/giuyyt/hexo_blog_image/raw/master/unity-new-1/1.PNG</a>)</p>
+<p>创建：新建Physics Material 2D<br>![pic_2]](<a href="https://gitee.com/giuyyt/hexo_blog_image/raw/master/unity-new-1/2.PNG" target="_blank" rel="noopener">https://gitee.com/giuyyt/hexo_blog_image/raw/master/unity-new-1/2.PNG</a>)</p>
+<p>2.Canvas:制作UI时使用，直接创建即可，起到类似于底板的作用。然后在它下面创建text之类的元素。</p>
+<p>3.Sprite：2D时使用较多。</p>
+<p>4.球的脚本Ball：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ball</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> GameObject player;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span>触发了底层的隐形墙壁，重开</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="collision"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnTriggerEnter2D</span>(<span class="params">Collider2D collision</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (collision.CompareTag(<span class="string">"Wall_game_finish"</span>))<span class="comment">//判断一个object的名称是否是制定的，这里的object是底层的隐形墙壁，碰到就要重开</span></span><br><span class="line">        &#123;</span><br><span class="line">            transform.position = player.transform.position;<span class="comment">//球的位置和玩家的板位置重合</span></span><br><span class="line">            GetComponent&lt;Rigidbody2D&gt;().velocity = Vector2.zero;<span class="comment">//将球的速度减为0</span></span><br><span class="line">            transform.SetParent(player.transform);<span class="comment">//将球的父亲物体设置为玩家的板，这样在移动板子时球也会跟着移动</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>5.玩家的板子Player的脚本：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Player</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">bool</span> isStart;<span class="comment">//判断游戏此时是否开始</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> force;<span class="comment">//在按下空格时给小球的力</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> speed;<span class="comment">//板子横向移动的速度</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> GameObject ball;<span class="comment">//指代小球物体</span></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 判断是否开始游戏，若按下空格表示开始游戏，给小球一个初始力使其开始弹射</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!isStart)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.Space))<span class="comment">//按下空格键</span></span><br><span class="line">            &#123;</span><br><span class="line">                ball.GetComponent&lt;Rigidbody2D&gt;().AddForce(Vector2.up * force, ForceMode2D.Impulse);<span class="comment">//给小球力</span></span><br><span class="line">                transform.DetachChildren();<span class="comment">//使得板子的所有子物体脱离自己，这样当板子移动时它们不再跟随</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">float</span> horizonalMove = Input.GetAxisRaw(<span class="string">"Horizontal"</span>) * speed * Time.deltaTime;<span class="comment">//移动速度，向右为正，以秒为单位（而不是帧）</span></span><br><span class="line"></span><br><span class="line">            transform.Translate(Vector2.right * horizonalMove);<span class="comment">//让板移动</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/04/20/redis-use-method/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -602,7 +686,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-20 11:17:40" itemprop="dateModified" datetime="2020-04-20T11:17:40+08:00">2020-04-20</time>
+                <time title="Modified: 2020-06-18 16:04:56" itemprop="dateModified" datetime="2020-06-18T16:04:56+08:00">2020-06-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -631,76 +715,10 @@
 <hr>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>1.测试排版和内容：hexo s<br>2.发布：hexo clean&amp;&amp;hexo g&amp;&amp;hexo d<br>3.新建（简易）：hexo new new_title<br>建立一个名为new_title的新博文<br>4.建立分类的方法，参照下面两篇博文：<br><a href="https://linlif.github.io/2017/05/27/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/" target="_blank" rel="noopener">https://linlif.github.io/2017/05/27/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/</a><br><a href="https://blog.csdn.net/winter_chen001/article/details/79719154" target="_blank" rel="noopener">https://blog.csdn.net/winter_chen001/article/details/79719154</a><br>5.图床：<br>参考视频：<a href="https://www.bilibili.com/video/BV1w741167qZ/?spm_id_from=333.788.videocard.5" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1w741167qZ/?spm_id_from=333.788.videocard.5</a></p>
 <hr>
-<h2 id="md写作方法积累"><a href="#md写作方法积累" class="headerlink" title="md写作方法积累"></a>md写作方法积累</h2><p>1.代码：```<br>2.正文的大标题：##；小标题：###等</p>
+<h2 id="md写作方法积累"><a href="#md写作方法积累" class="headerlink" title="md写作方法积累"></a>md写作方法积累</h2><p>1.代码：```<br>不同语言种类详见：<br><a href="https://www.jianshu.com/p/1f223eb78ad8" target="_blank" rel="noopener">https://www.jianshu.com/p/1f223eb78ad8</a><br>2.正文的大标题：##；小标题：###等</p>
 <hr>
 <h2 id="容易掉的坑"><a href="#容易掉的坑" class="headerlink" title="容易掉的坑"></a>容易掉的坑</h2><p>顶头的tags的冒号后打空格！（vscode中看到蓝色字和肉色字共存）</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/18/article/" class="post-title-link" itemprop="url">matlab小程序简记：用于矩阵或向量，提取出前N大的元素并返回其大小和位置</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:26:20" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天用matlab写了DIP中的大津算法和霍夫算法（直线），写后者时产生了这个衍生品，后来发现不用这个衍生品也可以写完Hough算法，但是个人认为这个函数还比较实用，所以记录在这里备忘。</p>
-<hr>
-<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[MaxValueVector,MaxIndexVector]</span> = <span class="title">SortNValues</span><span class="params">(Matrix,n)</span></span></span><br><span class="line"><span class="comment">%SortNValues 给定一个矩阵或者向量，排出前五个最大的数，返回这五个数的数量（从大到小，vector）以及位置</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MaxValueVector = <span class="built_in">zeros</span>(<span class="number">1</span>,n);</span><br><span class="line">MaxIndexVector = <span class="built_in">zeros</span>(<span class="number">2</span>,n);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">size</span>(Matrix,<span class="number">1</span>)==<span class="number">0</span>||<span class="built_in">size</span>(Matrix,<span class="number">2</span>)==<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n</span><br><span class="line">    MaxValueVector(<span class="number">1</span>,<span class="built_in">i</span>) = <span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>);</span><br><span class="line">    </span><br><span class="line">    [MaxIndexRow,MaxIndexCol] = <span class="built_in">find</span>(Matrix==<span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>));</span><br><span class="line">    </span><br><span class="line">    MaxIndexRow1 = <span class="number">0</span>;</span><br><span class="line">    MaxIndexCol1 = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">size</span>(MaxIndexRow,<span class="number">1</span>)~=<span class="number">1</span>||<span class="built_in">size</span>(MaxIndexCol,<span class="number">2</span>)~=<span class="number">1</span>)</span><br><span class="line">        MaxIndexRow1 = MaxIndexRow(<span class="number">1</span>);</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        MaxIndexRow1 = MaxIndexRow;</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    MaxIndexVector(:,<span class="built_in">i</span>) = [MaxIndexRow1;MaxIndexCol1];</span><br><span class="line">    Matrix(MaxIndexRow1,MaxIndexCol1) = -Matrix(MaxIndexRow1,MaxIndexCol1);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="简单的使用例"><a href="#简单的使用例" class="headerlink" title="简单的使用例"></a>简单的使用例</h2><hr>
-<h3 id="输入的是矩阵"><a href="#输入的是矩阵" class="headerlink" title="输入的是矩阵"></a>输入的是矩阵</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">b = <span class="number">2</span>:<span class="number">11</span>;</span><br><span class="line">c = [a;b];</span><br><span class="line">[m,n] = SortNValues(c,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [11,10,10,9,9]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    2,2,1,2,1;</span></span><br><span class="line"><span class="comment">%    10,9,10,8,9]</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="输入的是向量"><a href="#输入的是向量" class="headerlink" title="输入的是向量"></a>输入的是向量</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">[m,n] = SortNValues(a,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [10,9,8,7,6]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    1,1,1,1,1;</span></span><br><span class="line"><span class="comment">%    10,9,8,7,6]</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -797,6 +815,72 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/article/" class="post-title-link" itemprop="url">matlab小程序简记：用于矩阵或向量，提取出前N大的元素并返回其大小和位置</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:26:20" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天用matlab写了DIP中的大津算法和霍夫算法（直线），写后者时产生了这个衍生品，后来发现不用这个衍生品也可以写完Hough算法，但是个人认为这个函数还比较实用，所以记录在这里备忘。</p>
+<hr>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[MaxValueVector,MaxIndexVector]</span> = <span class="title">SortNValues</span><span class="params">(Matrix,n)</span></span></span><br><span class="line"><span class="comment">%SortNValues 给定一个矩阵或者向量，排出前五个最大的数，返回这五个数的数量（从大到小，vector）以及位置</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MaxValueVector = <span class="built_in">zeros</span>(<span class="number">1</span>,n);</span><br><span class="line">MaxIndexVector = <span class="built_in">zeros</span>(<span class="number">2</span>,n);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">size</span>(Matrix,<span class="number">1</span>)==<span class="number">0</span>||<span class="built_in">size</span>(Matrix,<span class="number">2</span>)==<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n</span><br><span class="line">    MaxValueVector(<span class="number">1</span>,<span class="built_in">i</span>) = <span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>);</span><br><span class="line">    </span><br><span class="line">    [MaxIndexRow,MaxIndexCol] = <span class="built_in">find</span>(Matrix==<span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>));</span><br><span class="line">    </span><br><span class="line">    MaxIndexRow1 = <span class="number">0</span>;</span><br><span class="line">    MaxIndexCol1 = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">size</span>(MaxIndexRow,<span class="number">1</span>)~=<span class="number">1</span>||<span class="built_in">size</span>(MaxIndexCol,<span class="number">2</span>)~=<span class="number">1</span>)</span><br><span class="line">        MaxIndexRow1 = MaxIndexRow(<span class="number">1</span>);</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        MaxIndexRow1 = MaxIndexRow;</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    MaxIndexVector(:,<span class="built_in">i</span>) = [MaxIndexRow1;MaxIndexCol1];</span><br><span class="line">    Matrix(MaxIndexRow1,MaxIndexCol1) = -Matrix(MaxIndexRow1,MaxIndexCol1);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="简单的使用例"><a href="#简单的使用例" class="headerlink" title="简单的使用例"></a>简单的使用例</h2><hr>
+<h3 id="输入的是矩阵"><a href="#输入的是矩阵" class="headerlink" title="输入的是矩阵"></a>输入的是矩阵</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">b = <span class="number">2</span>:<span class="number">11</span>;</span><br><span class="line">c = [a;b];</span><br><span class="line">[m,n] = SortNValues(c,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [11,10,10,9,9]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    2,2,1,2,1;</span></span><br><span class="line"><span class="comment">%    10,9,10,8,9]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="输入的是向量"><a href="#输入的是向量" class="headerlink" title="输入的是向量"></a>输入的是向量</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">[m,n] = SortNValues(a,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [10,9,8,7,6]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    1,1,1,1,1;</span></span><br><span class="line"><span class="comment">%    10,9,8,7,6]</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/02/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -843,63 +927,6 @@
 <p>##参考文献</p>
 <hr>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/02/04/no-title/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/04/no-title/" class="post-title-link" itemprop="url">no title</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-04 12:41:07" itemprop="dateCreated datePublished" datetime="2020-02-04T12:41:07+08:00">2020-02-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
       
     </div>
 
@@ -984,17 +1011,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
