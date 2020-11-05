@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<meta name="google-site-verification" content="GKshIfE4-61eKjJaON84hINiZX6kkevnZPaGtDa2pKQ" />
+<meta name="baidu-site-verification" content="0aj3cb07R5" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://giuyyt.github.io').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="并联机器人的工作空间的求解，使用matlab编写参考书目：file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;giuyyt&#x2F;Desktop&#x2F;并联机器人机构学理论及控制.pdf页码：p172、173等 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stewart_workspace_solve">
+<meta property="og:url" content="https://giuyyt.github.io/2020/11/05/stewart-workspace-solve/index.html">
+<meta property="og:site_name" content="博客园">
+<meta property="og:description" content="并联机器人的工作空间的求解，使用matlab编写参考书目：file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;giuyyt&#x2F;Desktop&#x2F;并联机器人机构学理论及控制.pdf页码：p172、173等 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-05T05:52:18.000Z">
+<meta property="article:modified_time" content="2020-11-05T06:03:57.450Z">
+<meta property="article:author" content="giuyyt">
+<meta property="article:tag" content="机器人开发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://giuyyt.github.io/2020/11/05/stewart-workspace-solve/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>stewart_workspace_solve | 博客园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客园</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">更新博客</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/11/05/stewart-workspace-solve/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          stewart_workspace_solve
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-05 13:52:18 / Modified: 14:03:57" itemprop="dateCreated datePublished" datetime="2020-11-05T13:52:18+08:00">2020-11-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">机器人开发</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>并联机器人的工作空间的求解，使用matlab编写<br>参考书目：file:///C:/Users/giuyyt/Desktop/并联机器人机构学理论及控制.pdf<br>页码：p172、173等</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span></span><br><span class="line"><span class="comment">%Stewart平台工作空间求解</span></span><br><span class="line"><span class="comment">%尝试两种方法：扫描方法和蒙特卡洛法</span></span><br><span class="line"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span></span><br><span class="line">clc;clear;</span><br><span class="line">tic</span><br><span class="line"><span class="comment">%% stewart平台的参数给定</span></span><br><span class="line"><span class="comment">%global参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%动平台相对静平台初始位置坐标</span></span><br><span class="line"><span class="keyword">global</span> xp yp zp;</span><br><span class="line"></span><br><span class="line">xp = <span class="number">0</span>;</span><br><span class="line">yp = <span class="number">0</span>;</span><br><span class="line">zp = <span class="number">5.5</span>;</span><br><span class="line"><span class="comment">% zp = 90;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%R：动平台外接圆半径；r：静平台外接圆半径</span></span><br><span class="line"><span class="keyword">global</span> R r; </span><br><span class="line"></span><br><span class="line">R = <span class="number">1</span>;</span><br><span class="line">r = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%%动平台铰点安装角</span></span><br><span class="line"><span class="keyword">global</span> upAngle0 upAngle1 upAngle2 upAngle3 upAngle4 upAngle5;</span><br><span class="line"></span><br><span class="line">upAngle0 = <span class="number">15</span>;</span><br><span class="line">upAngle1 = <span class="number">105</span>;</span><br><span class="line">upAngle2 = <span class="number">135</span>;</span><br><span class="line">upAngle3 = <span class="number">225</span>;</span><br><span class="line">upAngle4 = <span class="number">255</span>;</span><br><span class="line">upAngle5 = <span class="number">345</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%并联机器人的限制范围，求工作空间时用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%电推杆最大长度与最小长度（绝对量）</span></span><br><span class="line"><span class="keyword">global</span> poleMaxLen poleMinLen;</span><br><span class="line">poleMaxLen = <span class="number">7.5</span>;</span><br><span class="line">poleMinLen = <span class="number">4.5</span>;</span><br><span class="line"><span class="comment">%虎克铰（下）最大转角和最小转角(°)</span></span><br><span class="line"><span class="keyword">global</span> hookeMaxAngle hookeMinAngle;</span><br><span class="line">hookeMaxAngle = <span class="number">45</span>;</span><br><span class="line">hookeMinAngle = <span class="number">-45</span>;</span><br><span class="line"><span class="comment">%球铰（上）最大转角和最小转角(°)</span></span><br><span class="line"><span class="keyword">global</span> sphereMaxAngle sphereMinAngle;</span><br><span class="line">sphereMaxAngle = <span class="number">45</span>;</span><br><span class="line">sphereMinAngle = <span class="number">-45</span>;</span><br><span class="line"><span class="comment">%电推杆半径（mm）</span></span><br><span class="line"><span class="keyword">global</span> poleRad;</span><br><span class="line">poleRad = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%%静平台铰点安装角</span></span><br><span class="line"><span class="keyword">global</span> downAngle0 downAngle1 downAngle2 downAngle3 downAngle4 downAngle5;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">downAngle0 = <span class="number">30</span>;</span><br><span class="line">downAngle1 = <span class="number">90</span>;</span><br><span class="line">downAngle2 = <span class="number">150</span>;</span><br><span class="line">downAngle3 = <span class="number">210</span>;</span><br><span class="line">downAngle4 = <span class="number">270</span>;</span><br><span class="line">downAngle5 = <span class="number">330</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%运动范围限制</span></span><br><span class="line"><span class="keyword">global</span> xMin xMax;</span><br><span class="line"><span class="keyword">global</span> yMin yMax;</span><br><span class="line"><span class="keyword">global</span> zMin zMax;</span><br><span class="line"><span class="keyword">global</span> rollMin rollMax;</span><br><span class="line"><span class="keyword">global</span> pitchMin pitchMax;</span><br><span class="line"><span class="keyword">global</span> yawMin yawMax;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">xMin = <span class="number">-10</span>;xMax = <span class="number">10</span>;</span><br><span class="line">yMin = <span class="number">-10</span>;yMax = <span class="number">10</span>;</span><br><span class="line">zMin = <span class="number">-10</span>; zMax = <span class="number">10</span>;</span><br><span class="line"><span class="comment">% xMin = -40;xMax = 40;</span></span><br><span class="line"><span class="comment">% yMin = -40;yMax = 40;</span></span><br><span class="line"><span class="comment">% zMin = -40; zMax =40;</span></span><br><span class="line">rollMin = <span class="number">-13.5</span>; rollMax = <span class="number">13.5</span>;</span><br><span class="line">pitchMin = <span class="number">-14.2</span>; pitchMax = <span class="number">14.2</span>;</span><br><span class="line">yawMin = <span class="number">-38</span>; yawMax = <span class="number">38</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 蒙特卡洛法</span></span><br><span class="line"><span class="comment">% expeNum = 10000;%随机取样次数</span></span><br><span class="line"><span class="comment">% acceptPointArray = [];</span></span><br><span class="line"><span class="comment">% totalPointArray = [];</span></span><br><span class="line"><span class="comment">% i = 0;</span></span><br><span class="line"><span class="comment">% </span></span><br><span class="line"><span class="comment">% while(i&lt;expeNum)</span></span><br><span class="line"><span class="comment">%      %取样,rand在0-1取样</span></span><br><span class="line"><span class="comment">%     x = (xMax-xMin)*rand+xMin;</span></span><br><span class="line"><span class="comment">%     y = (yMax-yMin)*rand+yMin;</span></span><br><span class="line"><span class="comment">%     z = (zMax-zMin)*rand+zMin;</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     %姿态需要固定</span></span><br><span class="line"><span class="comment">%     roll = 0;</span></span><br><span class="line"><span class="comment">%     pitch = 0;</span></span><br><span class="line"><span class="comment">%     yaw = 0;</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     totalPointArray = [</span></span><br><span class="line"><span class="comment">%             totalPointArray;</span></span><br><span class="line"><span class="comment">%             x,y,z</span></span><br><span class="line"><span class="comment">%             ];</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     %判断是否可行</span></span><br><span class="line"><span class="comment">%     isSatisfy = isSatisfyTotal(x,y,z,roll,pitch,yaw);</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     if(isSatisfy==1)</span></span><br><span class="line"><span class="comment">%         acceptPointArray = [</span></span><br><span class="line"><span class="comment">%             acceptPointArray;</span></span><br><span class="line"><span class="comment">%             x,y,z</span></span><br><span class="line"><span class="comment">%             ];</span></span><br><span class="line"><span class="comment">%         i = i +1;</span></span><br><span class="line"><span class="comment">%     else</span></span><br><span class="line"><span class="comment">%     end</span></span><br><span class="line"><span class="comment">% end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> m = <span class="number">1</span>:<span class="number">3</span></span><br><span class="line">    <span class="comment">%% 扫描法</span></span><br><span class="line">    <span class="comment">%%%参数设定</span></span><br><span class="line">    <span class="built_in">i</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">j</span> = <span class="number">0</span>;</span><br><span class="line">    k = <span class="number">0</span>;</span><br><span class="line">    zNum = <span class="number">400</span>;</span><br><span class="line">    gammaNum = <span class="number">200</span>;</span><br><span class="line">    deltaRho = <span class="number">0.01</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">%姿态需要固定</span></span><br><span class="line">    roll = (m<span class="number">-1</span>)*<span class="number">5</span>;</span><br><span class="line">    pitch = (m<span class="number">-1</span>)*<span class="number">5</span>;</span><br><span class="line">    yaw = (m<span class="number">-1</span>)*<span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">%%%实现</span></span><br><span class="line">    deltaGamma = <span class="number">2</span>*<span class="built_in">pi</span>/gammaNum;</span><br><span class="line">    deltaZ = (zMax-zMin)/zNum;</span><br><span class="line">    edgePointArray = [];<span class="comment">%记录边缘上的点的数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:zNum</span><br><span class="line">        rhoTemp = <span class="number">0</span>;</span><br><span class="line">        gammaTemp = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        zTemp = zMin+deltaZ*<span class="built_in">i</span>;</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span>:gammaNum</span><br><span class="line">            isSatisfyLast = <span class="number">0</span>;<span class="comment">%记录上一次是否符合要求</span></span><br><span class="line">            gammaTemp = gammaTemp+deltaGamma;</span><br><span class="line">            k = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(rhoTemp&lt;<span class="number">0</span>)</span><br><span class="line">                rhoTemp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            deltaRho = <span class="built_in">abs</span>(deltaRho);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">                <span class="comment">%将极坐标转换成直角坐标</span></span><br><span class="line">                [xTemp,yTemp] = polarCoo2CarsCoo(rhoTemp,gammaTemp);</span><br><span class="line">                <span class="comment">%判断是否可行</span></span><br><span class="line">                isSatisfy = isSatisfyTotal(xTemp,yTemp,zTemp,roll,pitch,yaw);</span><br><span class="line"></span><br><span class="line">                <span class="comment">%第一次</span></span><br><span class="line">                <span class="keyword">if</span>(k==<span class="number">0</span>)</span><br><span class="line">                    isSatisfyLast = isSatisfy; </span><br><span class="line">                    <span class="comment">%第一次在范围内，不断增大极径直到到达极限</span></span><br><span class="line">                    <span class="keyword">if</span>(isSatisfy == <span class="number">1</span>)</span><br><span class="line">                        deltaRho = deltaRho*<span class="number">1</span>; </span><br><span class="line">                    <span class="comment">%第一次不在范围内，不断缩小极径直到到达极限    </span></span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        deltaRho = deltaRho*(<span class="number">-1</span>); </span><br><span class="line">                    <span class="keyword">end</span></span><br><span class="line">                    rhoTemp = rhoTemp+deltaRho;</span><br><span class="line"></span><br><span class="line">                <span class="comment">%非第一次</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="comment">%若上一次状态与本次相同，继续变化极径；</span></span><br><span class="line">                    <span class="keyword">if</span>(isSatisfy==isSatisfyLast&amp;&amp;rhoTemp&gt;<span class="number">0</span>)</span><br><span class="line">                        rhoTemp = rhoTemp+deltaRho;</span><br><span class="line">                        isSatisfyLast = isSatisfy; </span><br><span class="line">                    <span class="comment">%若上一次状态与本次不同，记录本次点，进入下一个gamma角</span></span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        <span class="keyword">if</span>(k&gt;<span class="number">1</span>)</span><br><span class="line">                            edgePointArray = [edgePointArray;xTemp,yTemp,zTemp];</span><br><span class="line">                        <span class="keyword">end</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                k = k+<span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">%% 画图</span></span><br><span class="line">    <span class="built_in">plot3</span>(edgePointArray(:,<span class="number">1</span>),edgePointArray(:,<span class="number">2</span>),edgePointArray(:,<span class="number">3</span>));</span><br><span class="line">    <span class="built_in">hold</span> on;</span><br><span class="line">    view(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    toc</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%标出（0，0）点</span></span><br><span class="line"><span class="built_in">scatter3</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">% surf(X,Y,Z),view(90,0)</span></span><br><span class="line"><span class="comment">% title('侧视图')</span></span><br><span class="line"><span class="comment">% subplot(2,2,3)</span></span><br><span class="line"><span class="comment">% surf(X,Y,Z),view(0,0)</span></span><br><span class="line"><span class="comment">% title('正视图')</span></span><br><span class="line"><span class="comment">% subplot(2,2,4)</span></span><br><span class="line"><span class="comment">% surf(X,Y,Z),view(0,90)</span></span><br><span class="line"><span class="comment">% title('俯视图')</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91/" rel="tag"># 机器人开发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/02/unity_new_2/" rel="prev" title="unity游戏开发入门笔记_2">
+      <i class="fa fa-chevron-left"></i> unity游戏开发入门笔记_2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">giuyyt</p>
+  <div class="site-description" itemprop="description">描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">giuyyt</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
