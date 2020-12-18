@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<meta name="google-site-verification" content="GKshIfE4-61eKjJaON84hINiZX6kkevnZPaGtDa2pKQ" />
+<meta name="baidu-site-verification" content="0aj3cb07R5" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://giuyyt.github.io').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="解决方案网址：https:&#x2F;&#x2F;foxypanda.me&#x2F;tcp-client-in-a-uwp-unity-app-on-hololens&#x2F;使用hololens2和PC端进行socket通讯的编程方法，其中前者是客户端而后者是服务器端。这项任务实现有困难，根源在于hololens2的UWP和unity中运行的c#程序不兼容，一些库只能在unity中运行而不能在UWP中运行。服务器端按照一般方式编写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hololens2的socket编程——TCP协议">
+<meta property="og:url" content="https://giuyyt.github.io/2020/12/18/hololens-socket-code/index.html">
+<meta property="og:site_name" content="博客园">
+<meta property="og:description" content="解决方案网址：https:&#x2F;&#x2F;foxypanda.me&#x2F;tcp-client-in-a-uwp-unity-app-on-hololens&#x2F;使用hololens2和PC端进行socket通讯的编程方法，其中前者是客户端而后者是服务器端。这项任务实现有困难，根源在于hololens2的UWP和unity中运行的c#程序不兼容，一些库只能在unity中运行而不能在UWP中运行。服务器端按照一般方式编写">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-18T13:44:29.000Z">
+<meta property="article:modified_time" content="2020-12-18T13:58:39.565Z">
+<meta property="article:author" content="giuyyt">
+<meta property="article:tag" content="hololens2开发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://giuyyt.github.io/2020/12/18/hololens-socket-code/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>hololens2的socket编程——TCP协议 | 博客园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客园</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">更新博客</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/12/18/hololens-socket-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hololens2的socket编程——TCP协议
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-18 21:44:29 / Modified: 21:58:39" itemprop="dateCreated datePublished" datetime="2020-12-18T21:44:29+08:00">2020-12-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hololens2%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">hololens2开发</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>解决方案网址：<a href="https://foxypanda.me/tcp-client-in-a-uwp-unity-app-on-hololens/" target="_blank" rel="noopener">https://foxypanda.me/tcp-client-in-a-uwp-unity-app-on-hololens/</a><br>使用hololens2和PC端进行socket通讯的编程方法，其中前者是客户端而后者是服务器端。<br>这项任务实现有困难，根源在于hololens2的UWP和unity中运行的c#程序不兼容，一些库只能在unity中运行而不能在UWP中运行。<br>服务器端按照一般方式编写即可，不受影响。</p>
+<p>代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> !UNITY_EDITOR</span></span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TCPSocketScript</span> : <span class="title">MonoBehaviour</span><span class="comment">//hololens为客户端连接电脑</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> host;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> port;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> replyStr;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> textStr;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">bool</span> firstReply = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">System.NonSerialized</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span>[] textStrArray;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Text tips;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> !UNITY_EDITOR</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">bool</span> _useUWP = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">private</span> Windows.Networking.Sockets.StreamSocket socket;</span><br><span class="line">    <span class="keyword">private</span> Task exchangeTask;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//笔记：</span></span><br><span class="line">    <span class="comment">//这个是用来判断平台的语句。内部的内容只会在unity编辑器中执行。如果你打包了，他就不会被执行。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">bool</span> _useUWP = <span class="literal">false</span>;</span><br><span class="line">    System.Net.Sockets.TcpClient client;</span><br><span class="line">    System.Net.Sockets.NetworkStream stream;</span><br><span class="line">    <span class="keyword">private</span> Thread exchangeThread;</span><br><span class="line">    <span class="keyword">private</span> Text text;</span><br><span class="line">    </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">private</span> StreamWriter writer;</span><br><span class="line">    <span class="keyword">private</span> StreamReader reader;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> needle_x;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> needle_y;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> needle_z;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> needle_q0;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> needle_qx;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> needle_qy;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> needle_qz;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> ribs339_x;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> ribs339_y;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> ribs339_z;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> ribs339_q0;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> ribs339_qx;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> ribs339_qy;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> ribs339_qz;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> probe340_x;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> probe340_y;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> probe340_z;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> probe340_q0;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> probe340_qx;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> probe340_qy;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> probe340_qz;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Quaternion needle_qua;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Quaternion ribs339_qua;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Quaternion probe340_qua;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector3 needle_posi;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector3 ribs339_posi;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector3 probe340_posi;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Matrix4x4 Tptmodel_ndi;<span class="comment">//工具端</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Matrix4x4 Tprobe_ndi;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Matrix4x4 T339_ndi;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Matrix4x4 Tndi_ptmodel;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Connect</span>(<span class="params"><span class="keyword">string</span> host, <span class="keyword">int</span> port</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (_useUWP)</span><br><span class="line">        &#123;</span><br><span class="line">            ConnectUWP(host, port);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ConnectUnity(host, port);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ConnectUWP</span>(<span class="params"><span class="keyword">string</span> host, <span class="keyword">int</span> port</span>)</span></span><br><span class="line"><span class="function">#else</span></span><br><span class="line"><span class="function">    <span class="keyword">private</span> <span class="keyword">async</span> <span class="keyword">void</span> <span class="title">ConnectUWP</span>(<span class="params"><span class="keyword">string</span> host, <span class="keyword">int</span> port</span>)</span></span><br><span class="line"><span class="function">#endif</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></span><br><span class="line">        print(<span class="string">"UWP TCP clinet used in Unity!"</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">     </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//笔记：UWP，异步，TCP</span></span><br><span class="line">            <span class="keyword">if</span> (exchangeTask != <span class="literal">null</span>) StopExchange();</span><br><span class="line">        </span><br><span class="line">            socket = <span class="keyword">new</span> Windows.Networking.Sockets.StreamSocket();</span><br><span class="line">            Windows.Networking.HostName serverHost = <span class="keyword">new</span> Windows.Networking.HostName(host);</span><br><span class="line">            <span class="keyword">string</span> portStr = Convert.ToString(port);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">await</span> socket.ConnectAsync(serverHost, portStr);</span><br><span class="line">     </span><br><span class="line">            Stream streamOut = socket.OutputStream.AsStreamForWrite();</span><br><span class="line">            writer = <span class="keyword">new</span> StreamWriter(streamOut) &#123; AutoFlush = <span class="literal">true</span> &#125;;</span><br><span class="line">     </span><br><span class="line">            Stream streamIn = socket.InputStream.AsStreamForRead();</span><br><span class="line">            reader = <span class="keyword">new</span> StreamReader(streamIn);</span><br><span class="line"></span><br><span class="line">            RestartExchange();</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">catch</span> (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">           print(<span class="string">"error"</span>+e);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ConnectUnity</span>(<span class="params"><span class="keyword">string</span> host, <span class="keyword">int</span> port</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> !UNITY_EDITOR</span></span><br><span class="line">        print(<span class="string">"Unity TCP client used in UWP!"</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (exchangeThread != <span class="literal">null</span>) StopExchange();</span><br><span class="line"></span><br><span class="line">            client = <span class="keyword">new</span> System.Net.Sockets.TcpClient(host, port);</span><br><span class="line">            stream = client.GetStream();</span><br><span class="line">            reader = <span class="keyword">new</span> StreamReader(stream);</span><br><span class="line">            writer = <span class="keyword">new</span> StreamWriter(stream) &#123; AutoFlush = <span class="literal">true</span> &#125;;</span><br><span class="line"></span><br><span class="line">            RestartExchange();</span><br><span class="line">            print(<span class="string">"Connected!"</span>); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//<span class="doctag">TODO:</span></span></span><br><span class="line">            print(<span class="string">"error"</span> + e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">bool</span> exchanging = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">bool</span> exchangeStopRequested = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">string</span> lastPacket = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RestartExchange</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></span><br><span class="line">        <span class="comment">//笔记：多线程</span></span><br><span class="line">        <span class="keyword">if</span> (exchangeThread != <span class="literal">null</span>) StopExchange();</span><br><span class="line">        exchangeStopRequested = <span class="literal">false</span>;</span><br><span class="line">        exchangeThread = <span class="keyword">new</span> System.Threading.Thread(ExchangePackets);</span><br><span class="line"></span><br><span class="line">        exchangeThread.Start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">        <span class="keyword">if</span> (exchangeTask != <span class="literal">null</span>) StopExchange();</span><br><span class="line">        exchangeStopRequested = <span class="literal">false</span>;</span><br><span class="line">        exchangeTask = Task.Run(() =&gt; ExchangePackets());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ExchangePackets</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">while</span> (!exchangeStopRequested)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (writer == <span class="literal">null</span> || reader == <span class="literal">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">            exchanging = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">string</span> received = <span class="string">""</span>;</span><br><span class="line">            received = reader.ReadLine();<span class="comment">//Server一定要发送有\n的内容！！</span></span><br><span class="line">            textStr = received;</span><br><span class="line">            print(received);</span><br><span class="line">            <span class="comment">//TODO：</span></span><br><span class="line">            writer.Write(replyStr+<span class="string">"\n"</span>);</span><br><span class="line">            <span class="comment">//Debug.Log("Sent data!");</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></span><br><span class="line">            <span class="comment">//byte[] bytes = new byte[client.SendBufferSize];</span></span><br><span class="line">            <span class="comment">//int recv = 0;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//recv = stream.Read(bytes, 0, client.SendBufferSize);</span></span><br><span class="line">            <span class="comment">//received += Encoding.UTF8.GetString(bytes, 0, recv);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">            <span class="comment">//笔记：读取发送来的信息</span></span><br><span class="line">            <span class="comment">//TODO：没有接收到数据</span></span><br><span class="line">            <span class="comment">//received = reader.ReadLine();</span></span><br><span class="line"></span><br><span class="line">          </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">            lastPacket = received;</span><br><span class="line">            <span class="comment">// Debug.Log("Read data:" + received);</span></span><br><span class="line">            exchanging = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ReportDataToTrackingManager</span>(<span class="params"><span class="keyword">string</span> data</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (data == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.Log(<span class="string">"Received a frame but data was null"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (firstReply == <span class="literal">true</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">            <span class="comment">//text.text = textStr;</span></span><br><span class="line"></span><br><span class="line">            firstReply = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//笔记：ndi发送的位姿数据</span></span><br><span class="line">        <span class="keyword">string</span>[] ccc = data.Split(<span class="keyword">new</span> <span class="keyword">string</span>[] &#123; <span class="string">"\t"</span> &#125;, StringSplitOptions.None);</span><br><span class="line">        <span class="keyword">int</span> c_length = ccc.GetLength(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//print(c_length);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (c_length &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; c_length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">try</span></span><br><span class="line">                &#123;</span><br><span class="line">                    textStrArray[i] = ccc[i];</span><br><span class="line">                    ReportStringToTrackingManager(ccc);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">catch</span> (Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    Debug.Log(<span class="string">" ReportDataToTrackingManager"</span> + e);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//NDI右手坐标系的四元数——Unity左手坐标系的四元数——左手坐标系的矩阵</span></span><br><span class="line">    <span class="comment">//Quaternion ConvertToUnity(Quaternion input)</span></span><br><span class="line">    <span class="comment">//&#123;</span></span><br><span class="line">    <span class="comment">//    return new Quaternion(</span></span><br><span class="line">    <span class="comment">//         input.y,   // -(  right = -left  )</span></span><br><span class="line">    <span class="comment">//        -input.z,   // -(     up =  up     )</span></span><br><span class="line">    <span class="comment">//        -input.x,   // -(forward =  forward)</span></span><br><span class="line">    <span class="comment">//         input.w</span></span><br><span class="line">    <span class="comment">//    );</span></span><br><span class="line">    <span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ReportStringToTrackingManager</span>(<span class="params"><span class="keyword">string</span>[] rigidBodyString</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//var ddd=rigidBodyString[].Split(new string[] &#123; "," &#125;, StringSplitOptions.None);</span></span><br><span class="line">        <span class="keyword">if</span> (rigidBodyString.Length &gt; <span class="number">3</span>)<span class="comment">//过滤掉\n等字符</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment"><span class="doctag">///</span>/肺部</span></span><br><span class="line">                <span class="comment">//if (rigidBodyString[1+0*8] != "MISSING")</span></span><br><span class="line">                <span class="comment">//&#123;</span></span><br><span class="line">                <span class="comment">//    //转化成m</span></span><br><span class="line">                <span class="comment">//    ribs339_x = float.Parse(rigidBodyString[6 + 0 * 8]) / 1000;</span></span><br><span class="line">                <span class="comment">//    ribs339_y = float.Parse(rigidBodyString[7 + 0 * 8]) / 1000;</span></span><br><span class="line">                <span class="comment">//    ribs339_z = float.Parse(rigidBodyString[8 + 0 * 8]) / 1000;</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//    ribs339_q0 = float.Parse(rigidBodyString[2 + 0 * 8]);</span></span><br><span class="line">                <span class="comment">//    ribs339_qx = float.Parse(rigidBodyString[3 + 0 * 8]);</span></span><br><span class="line">                <span class="comment">//    ribs339_qy = float.Parse(rigidBodyString[4 + 0 * 8]);</span></span><br><span class="line">                <span class="comment">//    ribs339_qz = float.Parse(rigidBodyString[5 + 0 * 8]);</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//    ribs339_qua = new Quaternion(ribs339_qx, ribs339_qy, ribs339_qz, ribs339_q0).normalized;</span></span><br><span class="line">                <span class="comment">//    ribs339_posi = new Vector3(ribs339_x, ribs339_y, ribs339_z);</span></span><br><span class="line">                <span class="comment">//    T339_ndi = Matrix4x4.TRS(ribs339_posi, ribs339_qua, new Vector3(1, 1, 1));</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                <span class="comment">//    //T339_ndi      </span></span><br><span class="line">                <span class="comment">//    //Vector3 trans_339 = ribs339_posi;</span></span><br><span class="line">                <span class="comment">//    //Quaternion qua_339 = ribs339_qua.normalized;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                <span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//针</span></span><br><span class="line">                <span class="keyword">if</span> (rigidBodyString[<span class="number">1</span> + <span class="number">0</span> * <span class="number">8</span>] != <span class="string">"MISSING"</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//转化成m</span></span><br><span class="line">                    probe340_x = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">6</span> + <span class="number">0</span> * <span class="number">8</span>]) / <span class="number">1000</span>;</span><br><span class="line">                    probe340_y = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">7</span> + <span class="number">0</span> * <span class="number">8</span>]) / <span class="number">1000</span>;</span><br><span class="line">                    probe340_z = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">8</span> + <span class="number">0</span> * <span class="number">8</span>]) / <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">                    probe340_q0 = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">2</span> + <span class="number">0</span> * <span class="number">8</span>]);</span><br><span class="line">                    probe340_qx = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">3</span> + <span class="number">0</span> * <span class="number">8</span>]);</span><br><span class="line">                    probe340_qy = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">4</span> + <span class="number">0</span> * <span class="number">8</span>]);</span><br><span class="line">                    probe340_qz = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">5</span> + <span class="number">0</span> * <span class="number">8</span>]);</span><br><span class="line"></span><br><span class="line">                    probe340_qua = <span class="keyword">new</span> Quaternion(probe340_qx, probe340_qy, probe340_qz, probe340_q0).normalized;</span><br><span class="line">                    probe340_posi = <span class="keyword">new</span> Vector3(probe340_x, probe340_y, probe340_z);</span><br><span class="line">                    Tprobe_ndi = Matrix4x4.TRS(probe340_posi,probe340_qua,<span class="keyword">new</span> Vector3(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//Tprobe_ndi </span></span><br><span class="line">                    <span class="comment">//Vector3 trans_340 = probe340_posi;</span></span><br><span class="line">                    <span class="comment">//Quaternion qua_340 = probe340_qua.normalized;</span></span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//工具端</span></span><br><span class="line">                <span class="keyword">if</span> (rigidBodyString[<span class="number">1</span> + <span class="number">1</span> * <span class="number">8</span>] != <span class="string">"MISSING"</span>)</span><br><span class="line">                &#123;</span><br><span class="line"></span><br><span class="line">                    needle_x = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">6</span> + <span class="number">1</span> * <span class="number">8</span>]) / <span class="number">1000</span>;</span><br><span class="line">                    needle_y = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">7</span> + <span class="number">1</span> * <span class="number">8</span>]) / <span class="number">1000</span>;</span><br><span class="line">                    needle_z = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">8</span> + <span class="number">1</span> * <span class="number">8</span>]) / <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">                    needle_q0 = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">2</span> + <span class="number">1</span> * <span class="number">8</span>]);</span><br><span class="line">                    needle_qx = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">3</span> + <span class="number">1</span> * <span class="number">8</span>]);</span><br><span class="line">                    needle_qy = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">4</span> + <span class="number">1</span> * <span class="number">8</span>]);</span><br><span class="line">                    needle_qz = <span class="keyword">float</span>.Parse(rigidBodyString[<span class="number">5</span> + <span class="number">1</span> * <span class="number">8</span>]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    needle_qua = <span class="keyword">new</span> Quaternion(needle_qx, needle_qy, needle_qz, needle_q0).normalized;</span><br><span class="line">                    needle_posi = <span class="keyword">new</span> Vector3(needle_x, needle_y, needle_z);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// Tptmodel_ndi</span></span><br><span class="line">                    <span class="comment">//Vector3 trans_pt = needle_posi;</span></span><br><span class="line">                    <span class="comment">//Quaternion qua_pt = needle_qua.normalized;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    <span class="comment">//Tndi_ptmodel</span></span><br><span class="line">                    Tptmodel_ndi = Matrix4x4.TRS(needle_posi, needle_qua, <span class="keyword">new</span> Vector3(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">                    Tndi_ptmodel = Tptmodel_ndi.inverse;</span><br><span class="line"></span><br><span class="line">                    tips.text = needle_posi.x.ToString() + <span class="string">","</span></span><br><span class="line">                                + needle_posi.y.ToString() + <span class="string">","</span></span><br><span class="line">                                + needle_posi.z.ToString() + <span class="string">","</span></span><br><span class="line">                                + needle_qua.w.ToString() + <span class="string">","</span></span><br><span class="line">                                + needle_qua.x.ToString() + <span class="string">","</span></span><br><span class="line">                                + needle_qua.y.ToString() + <span class="string">","</span></span><br><span class="line">                                + needle_qua.z.ToString();</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception err)</span><br><span class="line">            &#123;</span><br><span class="line">                Debug.Log(<span class="string">"ReportStringToTrackingManager"</span> + err.ToString());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StopExchange</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        exchangeStopRequested = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></span><br><span class="line">        <span class="keyword">if</span> (exchangeThread != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            exchangeThread.Abort();</span><br><span class="line">            stream.Close();</span><br><span class="line">            client.Close();</span><br><span class="line">            writer.Close();</span><br><span class="line">            reader.Close();</span><br><span class="line"></span><br><span class="line">            stream = <span class="literal">null</span>;</span><br><span class="line">            exchangeThread = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">        <span class="keyword">if</span> (exchangeTask != <span class="literal">null</span>) &#123;</span><br><span class="line">            exchangeTask.Wait();</span><br><span class="line">            socket.Dispose();</span><br><span class="line">            writer.Dispose();</span><br><span class="line">            reader.Dispose();</span><br><span class="line"></span><br><span class="line">            socket = <span class="literal">null</span>;</span><br><span class="line">            exchangeTask = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">        writer = <span class="literal">null</span>;</span><br><span class="line">        reader = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        print(<span class="string">"UDP!!!"</span>);</span><br><span class="line">        <span class="comment">//tips = GameObject.Find("ModelTarget/PolarisProbe/Canvas/Text").GetComponent&lt;Text&gt;();</span></span><br><span class="line">        <span class="comment">//string port = "26";</span></span><br><span class="line">        <span class="comment">//string host = "192.168.3.10";  //连电脑的IP地址 SYBT</span></span><br><span class="line">        <span class="comment">//string host = "10.135.217.20";  //连电脑的IP地址</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//text = GameObject.Find("TextMeshPro11").GetComponent&lt;Text&gt;();</span></span><br><span class="line">        Connect(host, port);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//笔记：解析lastPacket</span></span><br><span class="line">        ReportDataToTrackingManager(lastPacket);</span><br><span class="line">        <span class="comment">//tips = GameObject.Find("ModelTarget/PolarisProbe/Canvas/Text").GetComponent&lt;Text&gt;();</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnDestroy</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        StopExchange();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hololens2%E5%BC%80%E5%8F%91/" rel="tag"># hololens2开发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/03/unity-game-develop-resource/" rel="prev" title="unity游戏开发资源汇总">
+      <i class="fa fa-chevron-left"></i> unity游戏开发资源汇总
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">giuyyt</p>
+  <div class="site-description" itemprop="description">描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">giuyyt</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
