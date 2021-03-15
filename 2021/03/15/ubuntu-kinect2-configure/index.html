@@ -48,20 +48,20 @@
   };
 </script>
 
-  <meta name="description" content="bug及其解决方案跑demo过程中遇到的bug及其解决方法：  Unity中生成的工程进入VS后，要在C盘build，而且确保磁盘空间充足（3GB以上）否则会缺少GameAssembly.lib，依据：https:&#x2F;&#x2F;answers.unity.com&#x2F;questions&#x2F;1688472&#x2F;how-to-solve-mapfileparserexe-exited-with-code-532.html">
+  <meta name="description" content="libfreenect2：https:&#x2F;&#x2F;github.com&#x2F;OpenKinect&#x2F;libfreenect2iai_kinect2：https:&#x2F;&#x2F;github.com&#x2F;code-iai&#x2F;iai_kinect2#opencl-with-amd 1.注意安装的是kinect2 2.主要参照的教程：https:&#x2F;&#x2F;blog.csdn.net&#x2F;lvxobrkszd&#x2F;article&#x2F;details&#x2F;75">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hololens2开发的一些bug及其解决方案、相关网址记录（长期更新）">
-<meta property="og:url" content="https://giuyyt.github.io/2020/11/14/hololens2-development/index.html">
+<meta property="og:title" content="在Ubuntu16.04的环境下配置kinect2">
+<meta property="og:url" content="https://giuyyt.github.io/2021/03/15/ubuntu-kinect2-configure/index.html">
 <meta property="og:site_name" content="博客园">
-<meta property="og:description" content="bug及其解决方案跑demo过程中遇到的bug及其解决方法：  Unity中生成的工程进入VS后，要在C盘build，而且确保磁盘空间充足（3GB以上）否则会缺少GameAssembly.lib，依据：https:&#x2F;&#x2F;answers.unity.com&#x2F;questions&#x2F;1688472&#x2F;how-to-solve-mapfileparserexe-exited-with-code-532.html">
+<meta property="og:description" content="libfreenect2：https:&#x2F;&#x2F;github.com&#x2F;OpenKinect&#x2F;libfreenect2iai_kinect2：https:&#x2F;&#x2F;github.com&#x2F;code-iai&#x2F;iai_kinect2#opencl-with-amd 1.注意安装的是kinect2 2.主要参照的教程：https:&#x2F;&#x2F;blog.csdn.net&#x2F;lvxobrkszd&#x2F;article&#x2F;details&#x2F;75">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-11-14T05:20:58.000Z">
-<meta property="article:modified_time" content="2020-11-14T05:36:11.626Z">
+<meta property="article:published_time" content="2021-03-15T03:10:25.000Z">
+<meta property="article:modified_time" content="2021-03-15T03:23:55.584Z">
 <meta property="article:author" content="giuyyt">
-<meta property="article:tag" content="hololens2开发">
+<meta property="article:tag" content="Linux相关">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://giuyyt.github.io/2020/11/14/hololens2-development/">
+<link rel="canonical" href="https://giuyyt.github.io/2021/03/15/ubuntu-kinect2-configure/">
 
 
 <script id="page-configurations">
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title>hololens2开发的一些bug及其解决方案、相关网址记录（长期更新） | 博客园</title>
+  <title>在Ubuntu16.04的环境下配置kinect2 | 博客园</title>
   
 
 
@@ -173,7 +173,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/11/14/hololens2-development/">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/03/15/ubuntu-kinect2-configure/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -186,7 +186,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          hololens2开发的一些bug及其解决方案、相关网址记录（长期更新）
+          在Ubuntu16.04的环境下配置kinect2
         </h1>
 
         <div class="post-meta">
@@ -197,7 +197,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-11-14 13:20:58 / Modified: 13:36:11" itemprop="dateCreated datePublished" datetime="2020-11-14T13:20:58+08:00">2020-11-14</time>
+              <time title="Created: 2021-03-15 11:10:25 / Modified: 11:23:55" itemprop="dateCreated datePublished" datetime="2021-03-15T11:10:25+08:00">2021-03-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -205,8 +205,26 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hololens2%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
-                    <span itemprop="name">hololens2开发</span>
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/Linux/Ubuntu16-04/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu16.04</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/Linux/Ubuntu16-04/kinect2/" itemprop="url" rel="index">
+                    <span itemprop="name">kinect2</span>
                   </a>
                 </span>
             </span>
@@ -222,18 +240,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="bug及其解决方案"><a href="#bug及其解决方案" class="headerlink" title="bug及其解决方案"></a>bug及其解决方案</h2><p>跑demo过程中遇到的bug及其解决方法：</p>
-<ol>
-<li>Unity中生成的工程进入VS后，要在C盘build，而且确保磁盘空间充足（3GB以上）否则会缺少GameAssembly.lib，依据：<a href="https://answers.unity.com/questions/1688472/how-to-solve-mapfileparserexe-exited-with-code-532.htmlG" target="_blank" rel="noopener">https://answers.unity.com/questions/1688472/how-to-solve-mapfileparserexe-exited-with-code-532.htmlG</a></li>
-<li>Win10开发者模式开启时：错误0x800f0922<br>解决方法：<a href="https://www.youtube.com/watch?v=v2ZVtAIsEm4，方法2" target="_blank" rel="noopener">https://www.youtube.com/watch?v=v2ZVtAIsEm4，方法2</a></li>
-<li>Unity发布到UWP平台error：“IOException: Win32 IO returned 234. Path: C:\Program Files (x86)\Windows Kits.”<br>解决方法：<a href="https://blog.csdn.net/qq_41452267/article/details/106851395，方法1" target="_blank" rel="noopener">https://blog.csdn.net/qq_41452267/article/details/106851395，方法1</a></li>
-</ol>
-<h2 id="相关网址记录"><a href="#相关网址记录" class="headerlink" title="相关网址记录"></a>相关网址记录</h2><p>一些入门资料网站：<br><strong>介绍MR的网站</strong>：<a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/</a><br><strong>MRTK介绍网址</strong>：<a href="https://microsoft.github.io/MixedRealityToolkit-Unity/README.html" target="_blank" rel="noopener">https://microsoft.github.io/MixedRealityToolkit-Unity/README.html</a></p>
-<p><strong>通过PC端可以监视hololens 2的网站</strong>：<br><a href="http://127.0.0.1:10080/default.htm#Home" target="_blank" rel="noopener">http://127.0.0.1:10080/default.htm#Home</a><br>（USB连接，typec）<br>对应说明：<br><a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/using-the-windows-device-portal" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/using-the-windows-device-portal</a></p>
-<p><strong>iros2020中hololens2和ros联动控制机器人，人机交互</strong>：<br><a href="https://www.microsoft.com/en-us/research/event/mixed-reality-and-robotics-tutorial-iros-2020/#!agenda" target="_blank" rel="noopener">https://www.microsoft.com/en-us/research/event/mixed-reality-and-robotics-tutorial-iros-2020/#!agenda</a><br><a href="https://github.com/microsoft/mixed-reality-robot-interaction-demo" target="_blank" rel="noopener">https://github.com/microsoft/mixed-reality-robot-interaction-demo</a></p>
-<p><strong>hololens基于socket的UDP通信</strong>：<br><a href="https://blog.csdn.net/qq_44197337/article/details/105943914" target="_blank" rel="noopener">https://blog.csdn.net/qq_44197337/article/details/105943914</a></p>
-<p><strong>Vuforia与hololens联动介绍</strong>：<br><a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/vuforia-development-overview" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/vuforia-development-overview</a></p>
-<p><strong>unity开发hololens的教程</strong>：<br><a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/tutorials" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/tutorials</a></p>
+        <p>libfreenect2：<a href="https://github.com/OpenKinect/libfreenect2" target="_blank" rel="noopener">https://github.com/OpenKinect/libfreenect2</a><br>iai_kinect2：<a href="https://github.com/code-iai/iai_kinect2#opencl-with-amd" target="_blank" rel="noopener">https://github.com/code-iai/iai_kinect2#opencl-with-amd</a></p>
+<h2 id="1-注意"><a href="#1-注意" class="headerlink" title="1.注意"></a>1.注意</h2><p>安装的是kinect2</p>
+<h2 id="2-主要参照的教程："><a href="#2-主要参照的教程：" class="headerlink" title="2.主要参照的教程："></a>2.主要参照的教程：</h2><p><a href="https://blog.csdn.net/lvxobrkszd/article/details/75142503" target="_blank" rel="noopener">https://blog.csdn.net/lvxobrkszd/article/details/75142503</a></p>
+<h2 id="3-测试时："><a href="#3-测试时：" class="headerlink" title="3.测试时："></a>3.测试时：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/Protonect cpu</span><br><span class="line">./bin/Protonect gl</span><br><span class="line">./bin/Protonect cl</span><br></pre></td></tr></table></figure>
+<p>这里注意加上sudo<br>且cl处一开始可能不行，由于电脑使用的是intel显卡（使用lspci | grep -i vga查看显卡类型）<br>opencl配置一方面参照原github上教程，另一方面参照：<a href="https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo" target="_blank" rel="noopener">https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo</a> alien *.rpm 是指，在上面5个wget下来的文件的文件夹里，把所有.rpm变成.deb，如果已经是.deb就不需要转了;sudo dpkg -i *.deb 则表示安装）</p>
+<h2 id="4-rosdep-install-r-–from-paths报错解决方法："><a href="#4-rosdep-install-r-–from-paths报错解决方法：" class="headerlink" title="4.rosdep install -r –from-paths报错解决方法："></a>4.rosdep install -r –from-paths报错解决方法：</h2><p><a href="https://blog.csdn.net/qq_37611824/article/details/80136989" target="_blank" rel="noopener">https://blog.csdn.net/qq_37611824/article/details/80136989</a></p>
+<h2 id="5-source-devel-setup-bash"><a href="#5-source-devel-setup-bash" class="headerlink" title="5.source devel/setup.bash"></a>5.source devel/setup.bash</h2><p>该命令注意在catkin_ws文件夹里进行</p>
+<h2 id="6-roslaunch-kinect2-bridge-kinect2-bridge-launch"><a href="#6-roslaunch-kinect2-bridge-kinect2-bridge-launch" class="headerlink" title="6.roslaunch kinect2_bridge kinect2_bridge.launch"></a>6.roslaunch kinect2_bridge kinect2_bridge.launch</h2><p>该命令需要管理员权限，可以先使用sudo su进入root再调用此命令，sudo su具体要参照：<a href="https://blog.csdn.net/qq_16775293/article/details/81138904" target="_blank" rel="noopener">https://blog.csdn.net/qq_16775293/article/details/81138904</a></p>
+<h2 id="7-rosrun-kinect2-viewer-kinect2-viewer"><a href="#7-rosrun-kinect2-viewer-kinect2-viewer" class="headerlink" title="7.rosrun kinect2_viewer kinect2_viewer"></a>7.rosrun kinect2_viewer kinect2_viewer</h2><p>该命令需要再开一个终端</p>
+<h2 id="8-默认的ros运行kinect2是gpu模式，转换成cpu模式"><a href="#8-默认的ros运行kinect2是gpu模式，转换成cpu模式" class="headerlink" title="8.默认的ros运行kinect2是gpu模式，转换成cpu模式"></a>8.默认的ros运行kinect2是gpu模式，转换成cpu模式</h2><p>rosrun kinect2_bridge kinect2_bridge   _depth_method:=cpu    _reg_method:=cpu，这里和6一样也需要权限而且不要忘了source devel/setup.bash</p>
+<h2 id="9-如果依然出现问题"><a href="#9-如果依然出现问题" class="headerlink" title="9.如果依然出现问题"></a>9.如果依然出现问题</h2><p>可以先试试把usb口拔了再试试</p>
 
     </div>
 
@@ -243,7 +260,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/hololens2%E5%BC%80%E5%8F%91/" rel="tag"># hololens2开发</a>
+              <a href="/tags/Linux%E7%9B%B8%E5%85%B3/" rel="tag"># Linux相关</a>
           </div>
 
         
@@ -252,13 +269,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/11/05/matlab-eqn-solve/" rel="prev" title="matlab推导和求解符号公式方法记录">
-      <i class="fa fa-chevron-left"></i> matlab推导和求解符号公式方法记录
+    <a href="/2021/03/05/ubuntu_wifi_setting/" rel="prev" title="在Ubuntu16.04系统下安装ROS的过程记录">
+      <i class="fa fa-chevron-left"></i> 在Ubuntu16.04系统下安装ROS的过程记录
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/11/15/csharp-tcp-development/" rel="next" title="c#下Socket编程，TCP协议">
-      c#下Socket编程，TCP协议 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -318,7 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#bug及其解决方案"><span class="nav-number">1.</span> <span class="nav-text">bug及其解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关网址记录"><span class="nav-number">2.</span> <span class="nav-text">相关网址记录</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-注意"><span class="nav-number">1.</span> <span class="nav-text">1.注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-主要参照的教程："><span class="nav-number">2.</span> <span class="nav-text">2.主要参照的教程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试时："><span class="nav-number">3.</span> <span class="nav-text">3.测试时：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-rosdep-install-r-–from-paths报错解决方法："><span class="nav-number">4.</span> <span class="nav-text">4.rosdep install -r –from-paths报错解决方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-source-devel-setup-bash"><span class="nav-number">5.</span> <span class="nav-text">5.source devel&#x2F;setup.bash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-roslaunch-kinect2-bridge-kinect2-bridge-launch"><span class="nav-number">6.</span> <span class="nav-text">6.roslaunch kinect2_bridge kinect2_bridge.launch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-rosrun-kinect2-viewer-kinect2-viewer"><span class="nav-number">7.</span> <span class="nav-text">7.rosrun kinect2_viewer kinect2_viewer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-默认的ros运行kinect2是gpu模式，转换成cpu模式"><span class="nav-number">8.</span> <span class="nav-text">8.默认的ros运行kinect2是gpu模式，转换成cpu模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-如果依然出现问题"><span class="nav-number">9.</span> <span class="nav-text">9.如果依然出现问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
