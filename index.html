@@ -196,7 +196,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-03-15 11:10:25 / Modified: 11:30:45" itemprop="dateCreated datePublished" datetime="2021-03-15T11:10:25+08:00">2021-03-15</time>
+              <time title="Created: 2021-03-15 11:10:25 / Modified: 13:03:53" itemprop="dateCreated datePublished" datetime="2021-03-15T11:10:25+08:00">2021-03-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,16 +240,16 @@
 
       
           <p>libfreenect2：<a href="https://github.com/OpenKinect/libfreenect2" target="_blank" rel="noopener">https://github.com/OpenKinect/libfreenect2</a><br>iai_kinect2：<a href="https://github.com/code-iai/iai_kinect2#opencl-with-amd" target="_blank" rel="noopener">https://github.com/code-iai/iai_kinect2#opencl-with-amd</a></p>
-<h2 id="1-注意"><a href="#1-注意" class="headerlink" title="1.注意"></a>1.注意</h2><p>安装的是kinect2</p>
-<h2 id="2-主要参照的教程："><a href="#2-主要参照的教程：" class="headerlink" title="2.主要参照的教程："></a>2.主要参照的教程：</h2><p><a href="https://blog.csdn.net/lvxobrkszd/article/details/75142503" target="_blank" rel="noopener">https://blog.csdn.net/lvxobrkszd/article/details/75142503</a></p>
-<h2 id="3-测试时："><a href="#3-测试时：" class="headerlink" title="3.测试时："></a>3.测试时：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/Protonect cpu</span><br><span class="line">./bin/Protonect gl</span><br><span class="line">./bin/Protonect cl</span><br></pre></td></tr></table></figure>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>安装的是kinect2</p>
+<h2 id="主要参照的教程："><a href="#主要参照的教程：" class="headerlink" title="主要参照的教程："></a>主要参照的教程：</h2><p><a href="https://blog.csdn.net/lvxobrkszd/article/details/75142503" target="_blank" rel="noopener">https://blog.csdn.net/lvxobrkszd/article/details/75142503</a></p>
+<h2 id="测试时："><a href="#测试时：" class="headerlink" title="测试时："></a>测试时：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/Protonect cpu</span><br><span class="line">./bin/Protonect gl</span><br><span class="line">./bin/Protonect cl</span><br></pre></td></tr></table></figure>
 <p>这里注意加上sudo<br>且cl处一开始可能不行，由于电脑使用的是intel显卡（使用lspci | grep -i vga查看显卡类型）<br>opencl配置一方面参照原github上教程，另一方面参照：<a href="https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo" target="_blank" rel="noopener">https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo</a> alien *.rpm 是指，在上面5个wget下来的文件的文件夹里，把所有.rpm变成.deb，如果已经是.deb就不需要转了;sudo dpkg -i *.deb 则表示安装）</p>
-<h2 id="4-rosdep-install-r-–from-paths报错解决方法："><a href="#4-rosdep-install-r-–from-paths报错解决方法：" class="headerlink" title="4.rosdep install -r –from-paths报错解决方法："></a>4.rosdep install -r –from-paths报错解决方法：</h2><p><a href="https://blog.csdn.net/qq_37611824/article/details/80136989" target="_blank" rel="noopener">https://blog.csdn.net/qq_37611824/article/details/80136989</a></p>
-<h2 id="5-source-devel-setup-bash"><a href="#5-source-devel-setup-bash" class="headerlink" title="5.source devel/setup.bash"></a>5.source devel/setup.bash</h2><p>该命令注意在catkin_ws文件夹里进行</p>
-<h2 id="6-roslaunch-kinect2-bridge-kinect2-bridge-launch"><a href="#6-roslaunch-kinect2-bridge-kinect2-bridge-launch" class="headerlink" title="6.roslaunch kinect2_bridge kinect2_bridge.launch"></a>6.roslaunch kinect2_bridge kinect2_bridge.launch</h2><p>该命令需要管理员权限，可以先使用sudo su进入root再调用此命令，sudo su具体要参照：<a href="https://blog.csdn.net/qq_16775293/article/details/81138904" target="_blank" rel="noopener">https://blog.csdn.net/qq_16775293/article/details/81138904</a></p>
-<h2 id="7-rosrun-kinect2-viewer-kinect2-viewer"><a href="#7-rosrun-kinect2-viewer-kinect2-viewer" class="headerlink" title="7.rosrun kinect2_viewer kinect2_viewer"></a>7.rosrun kinect2_viewer kinect2_viewer</h2><p>该命令需要再开一个终端</p>
-<h2 id="8-默认的ros运行kinect2是gpu模式，转换成cpu模式"><a href="#8-默认的ros运行kinect2是gpu模式，转换成cpu模式" class="headerlink" title="8.默认的ros运行kinect2是gpu模式，转换成cpu模式"></a>8.默认的ros运行kinect2是gpu模式，转换成cpu模式</h2><p>rosrun kinect2_bridge kinect2_bridge   _depth_method:=cpu    _reg_method:=cpu，这里和6一样也需要权限而且不要忘了source devel/setup.bash</p>
-<h2 id="9-如果依然出现问题"><a href="#9-如果依然出现问题" class="headerlink" title="9.如果依然出现问题"></a>9.如果依然出现问题</h2><p>可以先试试把usb口拔了再试试</p>
+<h2 id="rosdep-install-r-–from-paths报错解决方法："><a href="#rosdep-install-r-–from-paths报错解决方法：" class="headerlink" title="rosdep install -r –from-paths报错解决方法："></a>rosdep install -r –from-paths报错解决方法：</h2><p><a href="https://blog.csdn.net/qq_37611824/article/details/80136989" target="_blank" rel="noopener">https://blog.csdn.net/qq_37611824/article/details/80136989</a></p>
+<h2 id="source-devel-setup-bash"><a href="#source-devel-setup-bash" class="headerlink" title="source devel/setup.bash"></a>source devel/setup.bash</h2><p>该命令注意在catkin_ws文件夹里进行</p>
+<h2 id="roslaunch-kinect2-bridge-kinect2-bridge-launch"><a href="#roslaunch-kinect2-bridge-kinect2-bridge-launch" class="headerlink" title="roslaunch kinect2_bridge kinect2_bridge.launch"></a>roslaunch kinect2_bridge kinect2_bridge.launch</h2><p>该命令需要管理员权限，可以先使用sudo su进入root再调用此命令，sudo su具体要参照：<a href="https://blog.csdn.net/qq_16775293/article/details/81138904" target="_blank" rel="noopener">https://blog.csdn.net/qq_16775293/article/details/81138904</a></p>
+<h2 id="rosrun-kinect2-viewer-kinect2-viewer"><a href="#rosrun-kinect2-viewer-kinect2-viewer" class="headerlink" title="rosrun kinect2_viewer kinect2_viewer"></a>rosrun kinect2_viewer kinect2_viewer</h2><p>该命令需要再开一个终端</p>
+<h2 id="默认的ros运行kinect2是gpu模式，转换成cpu模式"><a href="#默认的ros运行kinect2是gpu模式，转换成cpu模式" class="headerlink" title="默认的ros运行kinect2是gpu模式，转换成cpu模式"></a>默认的ros运行kinect2是gpu模式，转换成cpu模式</h2><p>rosrun kinect2_bridge kinect2_bridge   _depth_method:=cpu    _reg_method:=cpu，这里和6一样也需要权限而且不要忘了source devel/setup.bash</p>
+<h2 id="如果依然出现问题"><a href="#如果依然出现问题" class="headerlink" title="如果依然出现问题"></a>如果依然出现问题</h2><p>可以先试试把usb口拔了再试试</p>
 
       
     </div>
