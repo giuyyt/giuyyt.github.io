@@ -171,6 +171,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/article1/" class="post-title-link" itemprop="url">Java初学的一些笔记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:40:25" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下内容来源于：《JAVA核心技术卷1：基础知识》。</p>
+<hr>
+<h2 id="第三章-Java基本结构"><a href="#第三章-Java基本结构" class="headerlink" title="第三章 Java基本结构"></a>第三章 Java基本结构</h2><p>1.Java中表示常量使用<strong>final</strong>，而不是const<br>2.Java中表示字符串与其它的变量的拼接时，不需要类似c#中那样将其它变量转化为字符串(.ToString())，而是直接<strong>相加</strong>就行，自动转化。<br>3.Java中字符串是<strong>不可变</strong>的，这点和C语言形成对比。<br>4.Java中字符串的比较使用<strong>equals</strong>函数。不使用==。<br>5.Java中字符串尽量使用<strong>CodePoint</strong>相关的方法，<strong>char</strong>相关的除非要探究低级，否则不用。根本原因在于一个代码点可能由多个代码单元表示。<br>6.构建字符串：StringBuilder类<br>7.Java<strong>不能在嵌套的两个块中声明同名变量</strong>，这点和cpp不同。<br>8.Java大数运算：<strong>BigInteger</strong>和<strong>BigDecimal</strong>，运算不能使用运算符，因为运算符没有重载。<br>9.如果希望将一个数组的量拷贝到新的数组中去，要使用Arrays类的copyOf方法。</p>
+<hr>
+<h2 id="第四章-Java的类"><a href="#第四章-Java的类" class="headerlink" title="第四章 Java的类"></a>第四章 Java的类</h2><p>1.Java中一个对象变量仅仅是引用了一个对象，类似于cpp中的指针：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date birthday;<span class="comment">//java</span></span><br></pre></td></tr></table></figure>
+<p>等同于：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date* birthday;<span class="comment">//cpp</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>2.每一个类中可以定义一个main方法，用于单元测试。<br>3.Java中不能传递<strong>引用&amp;</strong>，<strong>只能值调用</strong>(p115)，一个类中的方法可以改变对象中的属性，但对于对象使用的不是引用调用。<br>4.Java中存在初始化块，在构造一个对象时就会自动执行，在构造器之前执行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对类中静态域的初始化：可以用静态初始化块，在类第一次加载时就被运行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如，一个没有main函数的HelloWorld：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello World!"</span>);</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5.Java导入包,例如导入java.util,从而使用其中的类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br></pre></td></tr></table></figure>
+<p>只能用import导入一个包。对应的类需要放在基目录下的java\util中。<br>将类放入包中，需要在类的开头写：package “包的名字”，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.horstmann.corejava;</span><br></pre></td></tr></table></figure>
+<p>对应地，该类的.java和.class需要放在基目录下的com\horstmann\corejava中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/02/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -436,7 +514,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
