@@ -171,6 +171,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/08/21/unity-camera-script/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/21/unity-camera-script/" class="post-title-link" itemprop="url">unity中关于相机移动的脚本</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-21 23:09:26 / Modified: 23:26:03" itemprop="dateCreated datePublished" datetime="2021-08-21T23:09:26+08:00">2021-08-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">unity游戏开发</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>unity中关于相机移动（包括平移和远近缩放）的三个脚本，如果使用的话将它们全部挂载在一个空object上就好，数值等可以参考下图：<br><img src="https://gitee.com/giuyyt/hexo_blog_image/raw/master/unity-camera-script/1.JPG" alt="1"></p>
+<p>代码：</p>
+<h2 id="CameraMoveDirectionKey-cs"><a href="#CameraMoveDirectionKey-cs" class="headerlink" title="CameraMoveDirectionKey.cs"></a>CameraMoveDirectionKey.cs</h2><p>CameraMoveDirectionKey.cs:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 镜头移动方式1：通过wasd(或者上下左右方向键)来上下左右平移镜头</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CameraMoveDirectionKey</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//镜头平移的速率</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> moveSpeed = <span class="number">100.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//镜头</span></span><br><span class="line">    <span class="keyword">public</span> Transform camera;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> horizontalInput = Input.GetAxis(<span class="string">"Horizontal"</span>);</span><br><span class="line">        <span class="keyword">float</span> verticalInput = Input.GetAxis(<span class="string">"Vertical"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Vector3 forwardMove = moveSpeed * camera.up * verticalInput * Time.deltaTime;</span><br><span class="line">        forwardMove.y = <span class="number">0</span>;</span><br><span class="line">        Vector3 rightMove = moveSpeed * camera.right * horizontalInput * Time.deltaTime;</span><br><span class="line"></span><br><span class="line">        Vector3 move = forwardMove + rightMove;</span><br><span class="line">        camera.position += move;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CameraScroll-cs"><a href="#CameraScroll-cs" class="headerlink" title="CameraScroll.cs"></a>CameraScroll.cs</h2><p>CameraScroll.cs:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 滑动鼠标滚轮使得镜头竖直上下移动</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CameraScroll</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> zoomSpeed = <span class="number">600.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Transform camera;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> scrollInput = -Input.GetAxis(<span class="string">"Mouse ScrollWheel"</span>);</span><br><span class="line">        Vector3 upMove = <span class="keyword">new</span> Vector3(<span class="number">0</span>, scrollInput * zoomSpeed * Time.deltaTime, <span class="number">0</span>);</span><br><span class="line">        camera.position += upMove;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CameraMoveMouse-cs"><a href="#CameraMoveMouse-cs" class="headerlink" title="CameraMoveMouse.cs"></a>CameraMoveMouse.cs</h2><p>CameraMoveMouse.cs:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 鼠标移动到屏幕边缘然后使得镜头移动</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CameraMoveMouse</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> mouseOffset=<span class="number">0.01f</span>;</span><br><span class="line">    <span class="keyword">public</span> Transform myCamera;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> moveSpeed=<span class="number">1f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> maxY = <span class="number">1f</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> maxX = <span class="number">1f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">mouseInScreenBound</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Vector3 v1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);</span><br><span class="line">        <span class="comment">//上移</span></span><br><span class="line">        <span class="keyword">if</span> (v1.y &gt;= maxY - mouseOffset)</span><br><span class="line">        &#123;</span><br><span class="line">            myCamera.Translate(Vector2.up * moveSpeed);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//下移</span></span><br><span class="line">        <span class="keyword">if</span> (v1.y &lt;= mouseOffset)</span><br><span class="line">        &#123;</span><br><span class="line">            myCamera.Translate(Vector2.down * moveSpeed);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//左移</span></span><br><span class="line">        <span class="keyword">if</span> (v1.x &lt;= mouseOffset)</span><br><span class="line">        &#123;</span><br><span class="line">            myCamera.Translate(Vector2.left * moveSpeed);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//右移</span></span><br><span class="line">        <span class="keyword">if</span> (v1.x &gt;= maxX - mouseOffset)</span><br><span class="line">        &#123;</span><br><span class="line">            myCamera.Translate(Vector2.right * moveSpeed);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        mouseInScreenBound();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/08/03/celt-music-record/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -916,104 +995,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/03/15/ubuntu-kinect2-configure/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/15/ubuntu-kinect2-configure/" class="post-title-link" itemprop="url">在Ubuntu16.04的环境下配置kinect2</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-03-15 11:10:25 / Modified: 13:03:53" itemprop="dateCreated datePublished" datetime="2021-03-15T11:10:25+08:00">2021-03-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ROS/" itemprop="url" rel="index">
-                    <span itemprop="name">ROS</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ROS/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ROS/Linux/Ubuntu16-04/" itemprop="url" rel="index">
-                    <span itemprop="name">Ubuntu16.04</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ROS/Linux/Ubuntu16-04/kinect2/" itemprop="url" rel="index">
-                    <span itemprop="name">kinect2</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>libfreenect2：<a href="https://github.com/OpenKinect/libfreenect2" target="_blank" rel="noopener">https://github.com/OpenKinect/libfreenect2</a><br>iai_kinect2：<a href="https://github.com/code-iai/iai_kinect2#opencl-with-amd" target="_blank" rel="noopener">https://github.com/code-iai/iai_kinect2#opencl-with-amd</a></p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>安装的是kinect2</p>
-<h2 id="主要参照的教程："><a href="#主要参照的教程：" class="headerlink" title="主要参照的教程："></a>主要参照的教程：</h2><p><a href="https://blog.csdn.net/lvxobrkszd/article/details/75142503" target="_blank" rel="noopener">https://blog.csdn.net/lvxobrkszd/article/details/75142503</a></p>
-<h2 id="测试时："><a href="#测试时：" class="headerlink" title="测试时："></a>测试时：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/Protonect cpu</span><br><span class="line">./bin/Protonect gl</span><br><span class="line">./bin/Protonect cl</span><br></pre></td></tr></table></figure>
-<p>这里注意加上sudo<br>且cl处一开始可能不行，由于电脑使用的是intel显卡（使用lspci | grep -i vga查看显卡类型）<br>opencl配置一方面参照原github上教程，另一方面参照：<a href="https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo" target="_blank" rel="noopener">https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo</a> alien *.rpm 是指，在上面5个wget下来的文件的文件夹里，把所有.rpm变成.deb，如果已经是.deb就不需要转了;sudo dpkg -i *.deb 则表示安装）</p>
-<h2 id="rosdep-install-r-–from-paths报错解决方法："><a href="#rosdep-install-r-–from-paths报错解决方法：" class="headerlink" title="rosdep install -r –from-paths报错解决方法："></a>rosdep install -r –from-paths报错解决方法：</h2><p><a href="https://blog.csdn.net/qq_37611824/article/details/80136989" target="_blank" rel="noopener">https://blog.csdn.net/qq_37611824/article/details/80136989</a></p>
-<h2 id="source-devel-setup-bash"><a href="#source-devel-setup-bash" class="headerlink" title="source devel/setup.bash"></a>source devel/setup.bash</h2><p>该命令注意在catkin_ws文件夹里进行</p>
-<h2 id="roslaunch-kinect2-bridge-kinect2-bridge-launch"><a href="#roslaunch-kinect2-bridge-kinect2-bridge-launch" class="headerlink" title="roslaunch kinect2_bridge kinect2_bridge.launch"></a>roslaunch kinect2_bridge kinect2_bridge.launch</h2><p>该命令需要管理员权限，可以先使用sudo su进入root再调用此命令，sudo su具体要参照：<a href="https://blog.csdn.net/qq_16775293/article/details/81138904" target="_blank" rel="noopener">https://blog.csdn.net/qq_16775293/article/details/81138904</a></p>
-<h2 id="rosrun-kinect2-viewer-kinect2-viewer"><a href="#rosrun-kinect2-viewer-kinect2-viewer" class="headerlink" title="rosrun kinect2_viewer kinect2_viewer"></a>rosrun kinect2_viewer kinect2_viewer</h2><p>该命令需要再开一个终端</p>
-<h2 id="默认的ros运行kinect2是gpu模式，转换成cpu模式"><a href="#默认的ros运行kinect2是gpu模式，转换成cpu模式" class="headerlink" title="默认的ros运行kinect2是gpu模式，转换成cpu模式"></a>默认的ros运行kinect2是gpu模式，转换成cpu模式</h2><p>rosrun kinect2_bridge kinect2_bridge   _depth_method:=cpu    _reg_method:=cpu，这里和6一样也需要权限而且不要忘了source devel/setup.bash</p>
-<h2 id="如果依然出现问题"><a href="#如果依然出现问题" class="headerlink" title="如果依然出现问题"></a>如果依然出现问题</h2><p>可以先试试把usb口拔了再试试</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1084,7 +1065,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
