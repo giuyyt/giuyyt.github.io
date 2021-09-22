@@ -171,6 +171,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/04/13/ee261-matlab-code1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/13/ee261-matlab-code1/" class="post-title-link" itemprop="url">ee261中的代码题（1）</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-13 19:17:35 / Modified: 20:16:17" itemprop="dateCreated datePublished" datetime="2020-04-13T19:17:35+08:00">2020-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ee261%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">ee261代码</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本题是ee261中Problem Set 4的一道matlab代码题，主要用到了fft和频域的相关知识。<br>ee261相关知识点整理博客：<a href="https://www.cnblogs.com/TaigaCon/p/5079156.html" target="_blank" rel="noopener">https://www.cnblogs.com/TaigaCon/p/5079156.html</a></p>
+<hr>
+<h2 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h2><h3 id="1-matlab的fft函数"><a href="#1-matlab的fft函数" class="headerlink" title="1.matlab的fft函数"></a>1.matlab的fft函数</h3><p>首先，根据傅里叶变换的公式可以得知，频域的F(s)关于y轴共轭对称，也就是说两边实部相同而虚部相反。然而，现实中正数频率才有意义，负数频率的数据则使用其它方法处理。<br>在matlab中，对时域数据进行fft处理后，得到的频域数据前一半为正数频率下的频谱，也就是现实中有意义的数据；而后一半为负数频率下的数据，可以直接删除掉；或者使用fftshift。<br>但是在频域处理之后，ifft之前要注意恢复到matlab fft之后的模式（即前一半正频率，后一半负频率，两部分关于中间对称），否则点数N都对不上，这肯定是不对的。</p>
+<p>参照：<a href="https://www.zhihu.com/question/39212146/answer/80239362" target="_blank" rel="noopener">https://www.zhihu.com/question/39212146/answer/80239362</a><br>第三个回答</p>
+<h3 id="2-ifft后取时域信号的实部而非模值"><a href="#2-ifft后取时域信号的实部而非模值" class="headerlink" title="2.ifft后取时域信号的实部而非模值"></a>2.ifft后取时域信号的实部而非模值</h3><p>见matlab代码最后,如下写法是错误的：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xDecode = <span class="built_in">abs</span>(ifft(yDecode));</span><br></pre></td></tr></table></figure>
+<p>正确如下式：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xDecode = <span class="built_in">real</span>(ifft(yDecode));</span><br></pre></td></tr></table></figure>
+
+<h2 id="matlab代码"><a href="#matlab代码" class="headerlink" title="matlab代码"></a>matlab代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%https://see.stanford.edu/materials/lsoftaee261/PS-4-2007.pdf</span></span><br><span class="line"><span class="comment">%第五题，matlab编程题</span></span><br><span class="line"><span class="comment">%题目大意：一段人声音频信号采取了加密，加密方式如下：</span></span><br><span class="line"><span class="comment">%将频域均分成四份，分别称为ABCD；题目中的音频将ABCD打乱为CBDA。</span></span><br><span class="line"><span class="comment">%现在请你还原该音频，并转录。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%导入信号并进行时域上观察</span></span><br><span class="line">[x,Fs]=audioread(<span class="string">'PS-4-scramble.wav'</span>);<span class="comment">%可以在官网上下载到：https://see.stanford.edu/materials/lsoftaee261/PS-4-scramble.wav</span></span><br><span class="line">T=<span class="number">1</span>/Fs;  <span class="comment">%采样周期</span></span><br><span class="line">t=(<span class="number">1</span>:<span class="built_in">length</span>(x))*T;<span class="comment">%采样时间</span></span><br><span class="line"><span class="built_in">figure</span>(<span class="number">1</span>);</span><br><span class="line"><span class="comment">% plot(t,x);</span></span><br><span class="line"><span class="comment">% title('原始信号时域图形');</span></span><br><span class="line"><span class="comment">% xlabel('时间t/s');</span></span><br><span class="line"><span class="comment">% ylabel('音量');</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%对信号fft，变换到频域</span></span><br><span class="line">y=fft(x);       <span class="comment">%做FFT变换</span></span><br><span class="line">yMod = <span class="built_in">abs</span>(y);</span><br><span class="line">f=(<span class="number">0</span>:<span class="built_in">length</span>(y)<span class="number">-1</span>).*Fs/<span class="built_in">length</span>(y);</span><br><span class="line"><span class="built_in">plot</span>(f,y)       <span class="comment">%画出原始信号的频谱图</span></span><br><span class="line">s = <span class="number">1</span>/(<span class="built_in">length</span>(y)*T);<span class="comment">%delta_s</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%%解码</span></span><br><span class="line"><span class="comment">%CBDA-&gt;ABCD</span></span><br><span class="line">yCell = cell(<span class="number">4</span>,<span class="number">1</span>);</span><br><span class="line">sliceNum = <span class="built_in">length</span>(y)/<span class="number">8</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">0</span>:<span class="number">3</span></span><br><span class="line">    yCell&#123;<span class="built_in">i</span>+<span class="number">1</span>,<span class="number">1</span>&#125; = y(<span class="built_in">i</span>*sliceNum+<span class="number">1</span>:(<span class="built_in">i</span>+<span class="number">1</span>)*sliceNum,<span class="number">1</span>); </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">yDecode = [</span><br><span class="line">    yCell&#123;<span class="number">4</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    yCell&#123;<span class="number">2</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    yCell&#123;<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    yCell&#123;<span class="number">3</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="built_in">conj</span>(yCell&#123;<span class="number">3</span>,<span class="number">1</span>&#125;);</span><br><span class="line">    <span class="built_in">conj</span>(yCell&#123;<span class="number">1</span>,<span class="number">1</span>&#125;);</span><br><span class="line">    <span class="built_in">conj</span>(yCell&#123;<span class="number">2</span>,<span class="number">1</span>&#125;);</span><br><span class="line">    <span class="built_in">conj</span>(yCell&#123;<span class="number">4</span>,<span class="number">1</span>&#125;);</span><br><span class="line">    ];</span><br><span class="line"><span class="comment">% plot(f,yDecode);</span></span><br><span class="line"><span class="comment">%%解码之后ifft，获得时域上音频信号xDecode</span></span><br><span class="line">xDecode = <span class="built_in">real</span>(ifft(yDecode));</span><br><span class="line">sound(xDecode,Fs);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/04/13/python-spider-bilibili-bullets-comments/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -409,72 +488,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/18/article/" class="post-title-link" itemprop="url">matlab小程序简记：用于矩阵或向量，提取出前N大的元素并返回其大小和位置</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:26:20" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天用matlab写了DIP中的大津算法和霍夫算法（直线），写后者时产生了这个衍生品，后来发现不用这个衍生品也可以写完Hough算法，但是个人认为这个函数还比较实用，所以记录在这里备忘。</p>
-<hr>
-<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[MaxValueVector,MaxIndexVector]</span> = <span class="title">SortNValues</span><span class="params">(Matrix,n)</span></span></span><br><span class="line"><span class="comment">%SortNValues 给定一个矩阵或者向量，排出前五个最大的数，返回这五个数的数量（从大到小，vector）以及位置</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MaxValueVector = <span class="built_in">zeros</span>(<span class="number">1</span>,n);</span><br><span class="line">MaxIndexVector = <span class="built_in">zeros</span>(<span class="number">2</span>,n);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">size</span>(Matrix,<span class="number">1</span>)==<span class="number">0</span>||<span class="built_in">size</span>(Matrix,<span class="number">2</span>)==<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n</span><br><span class="line">    MaxValueVector(<span class="number">1</span>,<span class="built_in">i</span>) = <span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>);</span><br><span class="line">    </span><br><span class="line">    [MaxIndexRow,MaxIndexCol] = <span class="built_in">find</span>(Matrix==<span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>));</span><br><span class="line">    </span><br><span class="line">    MaxIndexRow1 = <span class="number">0</span>;</span><br><span class="line">    MaxIndexCol1 = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">size</span>(MaxIndexRow,<span class="number">1</span>)~=<span class="number">1</span>||<span class="built_in">size</span>(MaxIndexCol,<span class="number">2</span>)~=<span class="number">1</span>)</span><br><span class="line">        MaxIndexRow1 = MaxIndexRow(<span class="number">1</span>);</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        MaxIndexRow1 = MaxIndexRow;</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    MaxIndexVector(:,<span class="built_in">i</span>) = [MaxIndexRow1;MaxIndexCol1];</span><br><span class="line">    Matrix(MaxIndexRow1,MaxIndexCol1) = -Matrix(MaxIndexRow1,MaxIndexCol1);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="简单的使用例"><a href="#简单的使用例" class="headerlink" title="简单的使用例"></a>简单的使用例</h2><hr>
-<h3 id="输入的是矩阵"><a href="#输入的是矩阵" class="headerlink" title="输入的是矩阵"></a>输入的是矩阵</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">b = <span class="number">2</span>:<span class="number">11</span>;</span><br><span class="line">c = [a;b];</span><br><span class="line">[m,n] = SortNValues(c,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [11,10,10,9,9]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    2,2,1,2,1;</span></span><br><span class="line"><span class="comment">%    10,9,10,8,9]</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="输入的是向量"><a href="#输入的是向量" class="headerlink" title="输入的是向量"></a>输入的是向量</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">[m,n] = SortNValues(a,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [10,9,8,7,6]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    1,1,1,1,1;</span></span><br><span class="line"><span class="comment">%    10,9,8,7,6]</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -535,6 +548,72 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.horstmann.corejava;</span><br></pre></td></tr></table></figure>
 <p>对应地，该类的.java和.class需要放在基目录下的com\horstmann\corejava中。</p>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/article/" class="post-title-link" itemprop="url">matlab小程序简记：用于矩阵或向量，提取出前N大的元素并返回其大小和位置</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:26:20" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天用matlab写了DIP中的大津算法和霍夫算法（直线），写后者时产生了这个衍生品，后来发现不用这个衍生品也可以写完Hough算法，但是个人认为这个函数还比较实用，所以记录在这里备忘。</p>
+<hr>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[MaxValueVector,MaxIndexVector]</span> = <span class="title">SortNValues</span><span class="params">(Matrix,n)</span></span></span><br><span class="line"><span class="comment">%SortNValues 给定一个矩阵或者向量，排出前五个最大的数，返回这五个数的数量（从大到小，vector）以及位置</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MaxValueVector = <span class="built_in">zeros</span>(<span class="number">1</span>,n);</span><br><span class="line">MaxIndexVector = <span class="built_in">zeros</span>(<span class="number">2</span>,n);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">size</span>(Matrix,<span class="number">1</span>)==<span class="number">0</span>||<span class="built_in">size</span>(Matrix,<span class="number">2</span>)==<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n</span><br><span class="line">    MaxValueVector(<span class="number">1</span>,<span class="built_in">i</span>) = <span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>);</span><br><span class="line">    </span><br><span class="line">    [MaxIndexRow,MaxIndexCol] = <span class="built_in">find</span>(Matrix==<span class="built_in">max</span>(Matrix,[],<span class="string">'all'</span>));</span><br><span class="line">    </span><br><span class="line">    MaxIndexRow1 = <span class="number">0</span>;</span><br><span class="line">    MaxIndexCol1 = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">size</span>(MaxIndexRow,<span class="number">1</span>)~=<span class="number">1</span>||<span class="built_in">size</span>(MaxIndexCol,<span class="number">2</span>)~=<span class="number">1</span>)</span><br><span class="line">        MaxIndexRow1 = MaxIndexRow(<span class="number">1</span>);</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        MaxIndexRow1 = MaxIndexRow;</span><br><span class="line">        MaxIndexCol1 = MaxIndexCol;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    MaxIndexVector(:,<span class="built_in">i</span>) = [MaxIndexRow1;MaxIndexCol1];</span><br><span class="line">    Matrix(MaxIndexRow1,MaxIndexCol1) = -Matrix(MaxIndexRow1,MaxIndexCol1);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="简单的使用例"><a href="#简单的使用例" class="headerlink" title="简单的使用例"></a>简单的使用例</h2><hr>
+<h3 id="输入的是矩阵"><a href="#输入的是矩阵" class="headerlink" title="输入的是矩阵"></a>输入的是矩阵</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">b = <span class="number">2</span>:<span class="number">11</span>;</span><br><span class="line">c = [a;b];</span><br><span class="line">[m,n] = SortNValues(c,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [11,10,10,9,9]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    2,2,1,2,1;</span></span><br><span class="line"><span class="comment">%    10,9,10,8,9]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="输入的是向量"><a href="#输入的是向量" class="headerlink" title="输入的是向量"></a>输入的是向量</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>:<span class="number">10</span>;</span><br><span class="line">[m,n] = SortNValues(a,<span class="number">5</span>);</span><br><span class="line"><span class="comment">%m = [10,9,8,7,6]</span></span><br><span class="line"><span class="comment">%n = [</span></span><br><span class="line"><span class="comment">%    1,1,1,1,1;</span></span><br><span class="line"><span class="comment">%    10,9,8,7,6]</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -818,17 +897,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
