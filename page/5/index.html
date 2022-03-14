@@ -171,6 +171,322 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/04/13/python-spider-bilibili-bullets-comments/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/13/python-spider-bilibili-bullets-comments/" class="post-title-link" itemprop="url">使用python爬虫进行bilibili弹幕爬取的记录</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-13 11:13:14" itemprop="dateCreated datePublished" datetime="2020-04-13T11:13:14+08:00">2020-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-20 11:18:41" itemprop="dateModified" datetime="2020-04-20T11:18:41+08:00">2020-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">python爬虫</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>爬取方法借鉴了<a href="https://blog.csdn.net/johnchang0201/article/details/103004229" target="_blank" rel="noopener">https://blog.csdn.net/johnchang0201/article/details/103004229</a><br>爬取完数据之后将数据保存到了excel中</p>
+<p>以下为代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">###获得某个bilibili视频的弹幕</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#输入url，获得其页面的内容</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_text</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        kv = &#123;</span><br><span class="line">            <span class="string">"user-agent"</span>: <span class="string">"Mozilla/5.0"</span></span><br><span class="line">        &#125;</span><br><span class="line">        r = requests.get(url, headers=kv)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="comment"># print(r.encoding)</span></span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        print(<span class="string">"爬取失败"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># #输入视频对应的url（从浏览器网址部分直接复制即可），输出对应的记录弹幕的xml页面</span></span><br><span class="line"><span class="comment"># def get_bullet_comments(BV_url):</span></span><br><span class="line"><span class="comment">#     heart_beat_url =</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">process_text</span><span class="params">(text_in)</span>:</span></span><br><span class="line">    soup = BeautifulSoup(text_in, <span class="string">'lxml'</span>)</span><br><span class="line">    results = soup.find_all(<span class="string">'d'</span>)  <span class="comment"># 找出所有'd'</span></span><br><span class="line">    comments = [comment.text <span class="keyword">for</span> comment <span class="keyword">in</span> results]  <span class="comment"># 因为出来的时候是bs4格式的，我们需要把他转化成list</span></span><br><span class="line">    <span class="comment"># print(type(comments))</span></span><br><span class="line">    <span class="keyword">return</span> comments</span><br><span class="line"></span><br><span class="line"><span class="comment">#将弹幕输出到excel中</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">export_excel</span><span class="params">(comments)</span>:</span></span><br><span class="line">    workbook = xlwt.Workbook(encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">    worksheet = workbook.add_sheet(<span class="string">'My Worksheet'</span>)</span><br><span class="line">    RowNum = len(comments)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,RowNum):</span><br><span class="line">        worksheet.write(i, <span class="number">0</span>, comments[i])</span><br><span class="line">    workbook.save(<span class="string">"Comments.xls"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">"https://api.bilibili.com/x/v1/dm/list.so?oid=136276727"</span></span><br><span class="line">    text = get_text(url)</span><br><span class="line">    comments = process_text(text)</span><br><span class="line">    export_excel(comments)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># for comment_single in comments:</span></span><br><span class="line">    <span class="comment">#     print(comment_single)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/04/12/python-requests-record/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/12/python-requests-record/" class="post-title-link" itemprop="url">python中使用requests库爬取网页的脚本模板记录</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-12 18:46:14" itemprop="dateCreated datePublished" datetime="2020-04-12T18:46:14+08:00">2020-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-20 11:18:33" itemprop="dateModified" datetime="2020-04-20T11:18:33+08:00">2020-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">python爬虫</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近回顾了python爬虫,学习了如何抓包（Firefox、Fiddler）。同时也把python中用requests库爬取网页的脚本模板记录在此，代码源自mooc中北理的相关网课：</p>
+<hr>
+<h2 id="requests库"><a href="#requests库" class="headerlink" title="requests库"></a>requests库</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"...."</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    kv = &#123;<span class="string">"user-agent"</span>:<span class="string">"Mozilla/5.0"</span>&#125;</span><br><span class="line">    r = requests.get(url,headers = kv)</span><br><span class="line">    r.raise_for_status()</span><br><span class="line">    r.encoding = r.apparent_encoding</span><br><span class="line">    print(r.text[<span class="number">1000</span>:<span class="number">2000</span>])</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"爬取失败"</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article-help/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/article-help/" class="post-title-link" itemprop="url">hexo使用备忘录</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-18 01:30:39" itemprop="dateCreated datePublished" datetime="2020-03-18T01:30:39+08:00">2020-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 23:31:41" itemprop="dateModified" datetime="2021-08-21T23:31:41+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo使用相关</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>长期更新，把hexo和常用命令都放在这里。</p>
+<hr>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>1.测试排版和内容：hexo s<br>2.发布：hexo clean&amp;&amp;hexo g&amp;&amp;hexo d<br>3.新建（简易）：hexo new new_title<br>建立一个名为new_title的新博文<br>4.建立分类的方法，参照下面两篇博文：<br><a href="https://linlif.github.io/2017/05/27/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/" target="_blank" rel="noopener">https://linlif.github.io/2017/05/27/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/</a><br><a href="https://blog.csdn.net/winter_chen001/article/details/79719154" target="_blank" rel="noopener">https://blog.csdn.net/winter_chen001/article/details/79719154</a><br>5.图床：<br>参考视频：<a href="https://www.bilibili.com/video/BV1w741167qZ/?spm_id_from=333.788.videocard.5" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1w741167qZ/?spm_id_from=333.788.videocard.5</a></p>
+<hr>
+<h2 id="md写作方法积累"><a href="#md写作方法积累" class="headerlink" title="md写作方法积累"></a>md写作方法积累</h2><p>1.代码：```<br>不同语言种类详见：<br><a href="https://www.jianshu.com/p/1f223eb78ad8" target="_blank" rel="noopener">https://www.jianshu.com/p/1f223eb78ad8</a><br>2.正文的大标题：##；小标题：###等</p>
+<hr>
+<h2 id="容易掉的坑"><a href="#容易掉的坑" class="headerlink" title="容易掉的坑"></a>容易掉的坑</h2><p>1.顶头的tags的冒号后打空格！（vscode中看到蓝色字和肉色字共存）<br>2.remote: Support for password authentication was removed on August 13, 2021.<br>上传时如果遇到此bug，解决方法：<a href="https://blog.csdn.net/weixin_41010198/article/details/119698015" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41010198/article/details/119698015</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/18/article1/" class="post-title-link" itemprop="url">Java初学的一些笔记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-18 00:59:02 / Modified: 01:40:25" itemprop="dateCreated datePublished" datetime="2020-03-18T00:59:02+08:00">2020-03-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下内容来源于：《JAVA核心技术卷1：基础知识》。</p>
+<hr>
+<h2 id="第三章-Java基本结构"><a href="#第三章-Java基本结构" class="headerlink" title="第三章 Java基本结构"></a>第三章 Java基本结构</h2><p>1.Java中表示常量使用<strong>final</strong>，而不是const<br>2.Java中表示字符串与其它的变量的拼接时，不需要类似c#中那样将其它变量转化为字符串(.ToString())，而是直接<strong>相加</strong>就行，自动转化。<br>3.Java中字符串是<strong>不可变</strong>的，这点和C语言形成对比。<br>4.Java中字符串的比较使用<strong>equals</strong>函数。不使用==。<br>5.Java中字符串尽量使用<strong>CodePoint</strong>相关的方法，<strong>char</strong>相关的除非要探究低级，否则不用。根本原因在于一个代码点可能由多个代码单元表示。<br>6.构建字符串：StringBuilder类<br>7.Java<strong>不能在嵌套的两个块中声明同名变量</strong>，这点和cpp不同。<br>8.Java大数运算：<strong>BigInteger</strong>和<strong>BigDecimal</strong>，运算不能使用运算符，因为运算符没有重载。<br>9.如果希望将一个数组的量拷贝到新的数组中去，要使用Arrays类的copyOf方法。</p>
+<hr>
+<h2 id="第四章-Java的类"><a href="#第四章-Java的类" class="headerlink" title="第四章 Java的类"></a>第四章 Java的类</h2><p>1.Java中一个对象变量仅仅是引用了一个对象，类似于cpp中的指针：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date birthday;<span class="comment">//java</span></span><br></pre></td></tr></table></figure>
+<p>等同于：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date* birthday;<span class="comment">//cpp</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>2.每一个类中可以定义一个main方法，用于单元测试。<br>3.Java中不能传递<strong>引用&amp;</strong>，<strong>只能值调用</strong>(p115)，一个类中的方法可以改变对象中的属性，但对于对象使用的不是引用调用。<br>4.Java中存在初始化块，在构造一个对象时就会自动执行，在构造器之前执行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对类中静态域的初始化：可以用静态初始化块，在类第一次加载时就被运行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如，一个没有main函数的HelloWorld：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello World!"</span>);</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5.Java导入包,例如导入java.util,从而使用其中的类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br></pre></td></tr></table></figure>
+<p>只能用import导入一个包。对应的类需要放在基目录下的java\util中。<br>将类放入包中，需要在类的开头写：package “包的名字”，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.horstmann.corejava;</span><br></pre></td></tr></table></figure>
+<p>对应地，该类的.java和.class需要放在基目录下的com\horstmann\corejava中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/03/18/article/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -502,17 +818,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -537,7 +853,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

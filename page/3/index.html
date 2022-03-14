@@ -171,6 +171,322 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/03/15/ubuntu-kinect2-configure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/15/ubuntu-kinect2-configure/" class="post-title-link" itemprop="url">在Ubuntu16.04的环境下配置kinect2</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-15 11:10:25 / Modified: 13:03:53" itemprop="dateCreated datePublished" datetime="2021-03-15T11:10:25+08:00">2021-03-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/Linux/Ubuntu16-04/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu16.04</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/Linux/Ubuntu16-04/kinect2/" itemprop="url" rel="index">
+                    <span itemprop="name">kinect2</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>libfreenect2：<a href="https://github.com/OpenKinect/libfreenect2" target="_blank" rel="noopener">https://github.com/OpenKinect/libfreenect2</a><br>iai_kinect2：<a href="https://github.com/code-iai/iai_kinect2#opencl-with-amd" target="_blank" rel="noopener">https://github.com/code-iai/iai_kinect2#opencl-with-amd</a></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>安装的是kinect2</p>
+<h2 id="主要参照的教程："><a href="#主要参照的教程：" class="headerlink" title="主要参照的教程："></a>主要参照的教程：</h2><p><a href="https://blog.csdn.net/lvxobrkszd/article/details/75142503" target="_blank" rel="noopener">https://blog.csdn.net/lvxobrkszd/article/details/75142503</a></p>
+<h2 id="测试时："><a href="#测试时：" class="headerlink" title="测试时："></a>测试时：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/Protonect cpu</span><br><span class="line">./bin/Protonect gl</span><br><span class="line">./bin/Protonect cl</span><br></pre></td></tr></table></figure>
+<p>这里注意加上sudo<br>且cl处一开始可能不行，由于电脑使用的是intel显卡（使用lspci | grep -i vga查看显卡类型）<br>opencl配置一方面参照原github上教程，另一方面参照：<a href="https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo" target="_blank" rel="noopener">https://blog.csdn.net/qingsong1001/article/details/92761773（这里的sudo</a> alien *.rpm 是指，在上面5个wget下来的文件的文件夹里，把所有.rpm变成.deb，如果已经是.deb就不需要转了;sudo dpkg -i *.deb 则表示安装）</p>
+<h2 id="rosdep-install-r-–from-paths报错解决方法："><a href="#rosdep-install-r-–from-paths报错解决方法：" class="headerlink" title="rosdep install -r –from-paths报错解决方法："></a>rosdep install -r –from-paths报错解决方法：</h2><p><a href="https://blog.csdn.net/qq_37611824/article/details/80136989" target="_blank" rel="noopener">https://blog.csdn.net/qq_37611824/article/details/80136989</a></p>
+<h2 id="source-devel-setup-bash"><a href="#source-devel-setup-bash" class="headerlink" title="source devel/setup.bash"></a>source devel/setup.bash</h2><p>该命令注意在catkin_ws文件夹里进行</p>
+<h2 id="roslaunch-kinect2-bridge-kinect2-bridge-launch"><a href="#roslaunch-kinect2-bridge-kinect2-bridge-launch" class="headerlink" title="roslaunch kinect2_bridge kinect2_bridge.launch"></a>roslaunch kinect2_bridge kinect2_bridge.launch</h2><p>该命令需要管理员权限，可以先使用sudo su进入root再调用此命令，sudo su具体要参照：<a href="https://blog.csdn.net/qq_16775293/article/details/81138904" target="_blank" rel="noopener">https://blog.csdn.net/qq_16775293/article/details/81138904</a></p>
+<h2 id="rosrun-kinect2-viewer-kinect2-viewer"><a href="#rosrun-kinect2-viewer-kinect2-viewer" class="headerlink" title="rosrun kinect2_viewer kinect2_viewer"></a>rosrun kinect2_viewer kinect2_viewer</h2><p>该命令需要再开一个终端</p>
+<h2 id="默认的ros运行kinect2是gpu模式，转换成cpu模式"><a href="#默认的ros运行kinect2是gpu模式，转换成cpu模式" class="headerlink" title="默认的ros运行kinect2是gpu模式，转换成cpu模式"></a>默认的ros运行kinect2是gpu模式，转换成cpu模式</h2><p>rosrun kinect2_bridge kinect2_bridge   _depth_method:=cpu    _reg_method:=cpu，这里和6一样也需要权限而且不要忘了source devel/setup.bash</p>
+<h2 id="如果依然出现问题"><a href="#如果依然出现问题" class="headerlink" title="如果依然出现问题"></a>如果依然出现问题</h2><p>可以先试试把usb口拔了再试试</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/03/05/ubuntu_wifi_setting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/05/ubuntu_wifi_setting/" class="post-title-link" itemprop="url">在Ubuntu16.04系统下安装ROS的过程记录</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-05 16:59:28 / Modified: 17:05:25" itemprop="dateCreated datePublished" datetime="2021-03-05T16:59:28+08:00">2021-03-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Wifi%E8%AE%BE%E7%BD%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">Wifi设置</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Wifi%E8%AE%BE%E7%BD%AE/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Wifi%E8%AE%BE%E7%BD%AE/Linux/Ubuntu16-04/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu16.04</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在安装完Ubuntu16.04之后发现无法连接wifi，对此进行了设置，将过程简记在此。</p>
+<p>主要依据：<a href="https://blog.csdn.net/fljhm/article/details/79281655" target="_blank" rel="noopener">https://blog.csdn.net/fljhm/article/details/79281655</a><br>第一步出错比较多；第三步最关键。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/03/05/ubuntu-wifi-setting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/05/ubuntu-wifi-setting/" class="post-title-link" itemprop="url">ubuntu_wifi_setting</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-05 08:57:02" itemprop="dateCreated datePublished" datetime="2021-03-05T08:57:02+08:00">2021-03-05</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/03/03/cmake-getting-started-record/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="giuyyt">
+      <meta itemprop="description" content="描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/03/cmake-getting-started-record/" class="post-title-link" itemprop="url">cmake入门过程记录</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-03 23:19:25 / Modified: 23:39:09" itemprop="dateCreated datePublished" datetime="2021-03-03T23:19:25+08:00">2021-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cmake/" itemprop="url" rel="index">
+                    <span itemprop="name">cmake</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>随着cmake的学习过程持续更新。</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>下载网址：<a href="https://cmake.org/download/" target="_blank" rel="noopener">https://cmake.org/download/</a><br>.msi提供的是命令行版的cmake，安装时添加到PATH里，然后在cmd里即可使用cmake的功能（例如cmake .等）<br>.zip下载后提供的是GUI版的cmake</p>
+<h2 id="作用简介"><a href="#作用简介" class="headerlink" title="作用简介"></a>作用简介</h2><p>通过一个名为CMakeLists.txt的文件（文件中有cmake脚本）起到编译链接的作用，将零散的源文件整合成一个工程。<br>makefile也可起到这个作用，但cmake更简单一些。<br>如果使用的VS这种大型IDE的话，IDE会自动帮你完成编译链接，这时就用不到cmake了。</p>
+<h2 id="写第一个cmake脚本"><a href="#写第一个cmake脚本" class="headerlink" title="写第一个cmake脚本"></a>写第一个cmake脚本</h2><p><a href="https://blog.csdn.net/zhangyiant/article/details/51289404" target="_blank" rel="noopener">https://blog.csdn.net/zhangyiant/article/details/51289404</a></p>
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>中文：<a href="https://blog.csdn.net/weixin_39408343/article/details/102951335" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39408343/article/details/102951335</a><br>官方文档：<a href="https://cmake.org/cmake/help/v3.16/guide/tutorial/index.html" target="_blank" rel="noopener">https://cmake.org/cmake/help/v3.16/guide/tutorial/index.html</a></p>
+<h2 id="遇到的一些bug记录"><a href="#遇到的一些bug记录" class="headerlink" title="遇到的一些bug记录"></a>遇到的一些bug记录</h2><h3 id="VERSION-not-allowed-unless-CMP0048-is-set-to-NEW"><a href="#VERSION-not-allowed-unless-CMP0048-is-set-to-NEW" class="headerlink" title="VERSION not allowed unless CMP0048 is set to NEW"></a>VERSION not allowed unless CMP0048 is set to NEW</h3><p>解决方案：<br>在“project (Tutorial VERSION 1.0)”语句之前添加如下语句：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">POLICY</span> CMP0048)</span><br><span class="line">  <span class="keyword">cmake_policy</span>(<span class="keyword">SET</span> CMP0048 NEW)</span><br><span class="line"><span class="keyword">endif</span> (<span class="keyword">POLICY</span> CMP0048)</span><br></pre></td></tr></table></figure>
+<p>解决方案原网址：<a href="https://github.com/Tencent/rapidjson/issues/1154" target="_blank" rel="noopener">https://github.com/Tencent/rapidjson/issues/1154</a></p>
+<h2 id="一个范例CMakeLists-txt"><a href="#一个范例CMakeLists-txt" class="headerlink" title="一个范例CMakeLists.txt"></a>一个范例CMakeLists.txt</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span> (VERSION <span class="number">2.6</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># specify the C++ standard</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#防止“project (Tutorial VERSION 1.0)”中的“VERSION 1.0”产生CMP0048相关bug</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">POLICY</span> CMP0048)</span><br><span class="line">  <span class="keyword">cmake_policy</span>(<span class="keyword">SET</span> CMP0048 NEW)</span><br><span class="line"><span class="keyword">endif</span> (<span class="keyword">POLICY</span> CMP0048)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span> (Tutorial VERSION <span class="number">1.0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">configure_file</span>(TutorialConfig.h.in TutorialConfig.h)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使得主程序在include文件时也进入这个文件夹（即工程所在文件夹）搜索，从而将TutorialConfig.h添加入工程</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="string">"$&#123;PROJECT_BINARY_DIR&#125;"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#如下两行为TutorialConfig.h.in的内容，在CMakeLists里不起作用</span></span><br><span class="line"><span class="comment">#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@</span></span><br><span class="line"><span class="comment">#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span> (Tutorial tutorial.cpp)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2021/03/03/ubuntu-ros-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -668,337 +984,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/11/15/csharp-tcp-development/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/15/csharp-tcp-development/" class="post-title-link" itemprop="url">c#下Socket编程，TCP协议</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-11-15 21:42:21 / Modified: 22:02:16" itemprop="dateCreated datePublished" datetime="2020-11-15T21:42:21+08:00">2020-11-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-%E7%BC%96%E7%A8%8B%EF%BC%8CTCPsocket%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">c#编程，TCPsocket编程</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文主要记录c#下TCPsocket编程的方法。<br>代码来源：<a href="https://blog.csdn.net/yangwohenmai1/article/details/92589072" target="_blank" rel="noopener">https://blog.csdn.net/yangwohenmai1/article/details/92589072</a></p>
-<h2 id="长连接和短连接"><a href="#长连接和短连接" class="headerlink" title="长连接和短连接"></a>长连接和短连接</h2><p>（以下来源于上面的链接）<br>对于Socket来说，链接类型一般分为长连接和短连接。</p>
-<p>长连接和短连接在程序上基本没有区别，区别是短连接每次发送完消息都要调用Close()方法来释放资源，而长连接则不调用Close()方法，从而保持持续不断的通信功能。</p>
-<h2 id="服务器端代码"><a href="#服务器端代码" class="headerlink" title="服务器端代码"></a>服务器端代码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Net;</span><br><span class="line"><span class="keyword">using</span> System.Net.Sockets;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">SocketServer</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">static</span> Socket socket = <span class="keyword">new</span> Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] result = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            SocketServie();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SocketServie</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"服务端已启动"</span>);</span><br><span class="line">            <span class="keyword">string</span> host = <span class="string">"127.0.0.1"</span>;<span class="comment">//IP地址</span></span><br><span class="line">            <span class="keyword">int</span> port = <span class="number">81</span>;<span class="comment">//端口</span></span><br><span class="line">            socket.Bind(<span class="keyword">new</span> IPEndPoint(IPAddress.Parse(host), port));</span><br><span class="line">            socket.Listen(<span class="number">100</span>);<span class="comment">//设定最多100个排队连接请求   </span></span><br><span class="line">            Thread myThread = <span class="keyword">new</span> Thread(ListenClientConnect);<span class="comment">//通过多线程监听客户端连接  </span></span><br><span class="line">            myThread.Start();</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>  </span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 监听客户端连接  </span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span>  </span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ListenClientConnect</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Socket clientSocket = socket.Accept();</span><br><span class="line">                clientSocket.Send(Encoding.UTF8.GetBytes(<span class="string">"我是服务器"</span>));</span><br><span class="line">                Thread receiveThread = <span class="keyword">new</span> Thread(ReceiveMessage);</span><br><span class="line">                receiveThread.Start(clientSocket);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>  </span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 接收消息  </span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span>  </span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="clientSocket"&gt;</span><span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ReceiveMessage</span>(<span class="params"><span class="keyword">object</span> clientSocket</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Socket myClientSocket = (Socket)clientSocket;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">try</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//通过clientSocket接收数据  </span></span><br><span class="line">                    <span class="keyword">int</span> receiveNumber = myClientSocket.Receive(result);</span><br><span class="line">                    <span class="keyword">if</span> (receiveNumber == <span class="number">0</span>)</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    Console.WriteLine(<span class="string">"接收客户端&#123;0&#125; 的消息：&#123;1&#125;"</span>, myClientSocket.RemoteEndPoint.ToString(), Encoding.UTF8.GetString(result, <span class="number">0</span>, receiveNumber));</span><br><span class="line">                    <span class="comment"><span class="doctag">///</span>/给Client端返回信息</span></span><br><span class="line">                    <span class="comment">//string sendStr = "已成功接到您发送的消息";</span></span><br><span class="line">                    <span class="comment">//byte[] bs = Encoding.UTF8.GetBytes(sendStr);//Encoding.UTF8.GetBytes()不然中文会乱码</span></span><br><span class="line">                    <span class="comment">//myClientSocket.Send(bs, bs.Length, 0);  //返回信息给客户端</span></span><br><span class="line">                    <span class="comment"><span class="doctag">///</span>/myClientSocket.Close(); //发送完数据关闭Socket并释放资源//长连接的话就不关闭</span></span><br><span class="line">                    <span class="comment"><span class="doctag">///</span>/Console.ReadLine();</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(ex.Message);</span><br><span class="line">                    myClientSocket.Close();<span class="comment">//关闭Socket并释放资源</span></span><br><span class="line">                    <span class="comment">//myClientSocket.Shutdown(SocketShutdown.Both);//禁止发送和上传</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里需要注意的是“给Client端返回信息”，若Client已经关闭，会进入catch部分；而myClientSocket.Shutdown这句话会报错，因此注释。<br>此外，这里的ip地址：127.0.0.1代表本机；端口可以随意取（80除外，这代表HTTP）<br>服务器端先开始运行，并进入监听状态；客户端在此期间运行并寻求连接，然后连接成立。<br>第一行的ProtocolType.Tcp表示TCP协议。</p>
-<h2 id="客户端代码"><a href="#客户端代码" class="headerlink" title="客户端代码"></a>客户端代码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Net;</span><br><span class="line"><span class="keyword">using</span> System.Net.Sockets;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">SocketClient</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">int</span> port = <span class="number">81</span>;</span><br><span class="line">            <span class="comment">//短连接</span></span><br><span class="line">            shotlink(<span class="string">""</span>,port);</span><br><span class="line">            <span class="comment">//长连接</span></span><br><span class="line">            <span class="comment">//longlink();</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 短连接，最后调用Close释放资源</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="input"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shotlink</span>(<span class="params"><span class="keyword">string</span> input,<span class="keyword">int</span> port</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//设定服务器IP地址  </span></span><br><span class="line">            IPAddress ip = IPAddress.Parse(<span class="string">"127.0.0.1"</span>);</span><br><span class="line">            Socket clientSocket = <span class="keyword">new</span> Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                clientSocket.Connect(<span class="keyword">new</span> IPEndPoint(ip, port)); <span class="comment">//配置服务器IP与端口  </span></span><br><span class="line">                Console.WriteLine(<span class="string">"连接服务器成功"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span></span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"连接服务器失败，请按回车键退出！"</span>);</span><br><span class="line">                Console.ReadLine();</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">string</span> sendMessage = <span class="string">"你好"</span>;<span class="comment">//发送到服务端的内容</span></span><br><span class="line">            clientSocket.Send(Encoding.UTF8.GetBytes(sendMessage));<span class="comment">//向服务器发送数据，需要发送中文则需要使用Encoding.UTF8.GetBytes()，否则会乱码</span></span><br><span class="line">            Console.WriteLine(<span class="string">"向服务器发送消息："</span> + sendMessage);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//接受从服务器返回的信息</span></span><br><span class="line">            <span class="keyword">string</span> recvStr = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">byte</span>[] recvBytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> bytes;</span><br><span class="line">            bytes = clientSocket.Receive(recvBytes, recvBytes.Length, <span class="number">0</span>);    <span class="comment">//从服务器端接受返回信息 </span></span><br><span class="line">            recvStr += Encoding.UTF8.GetString(recvBytes, <span class="number">0</span>, bytes);</span><br><span class="line">            Console.WriteLine(<span class="string">"服务端发来消息：&#123;0&#125;"</span>, recvStr);<span class="comment">//回显服务器的返回信息</span></span><br><span class="line">            <span class="comment">//每次完成通信后，关闭连接并释放资源</span></span><br><span class="line">            clientSocket.Close();</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 长连接不调用Close释放资源</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">longlink</span>(<span class="params"><span class="keyword">int</span> port</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//设定服务器IP地址  </span></span><br><span class="line">            IPAddress ip = IPAddress.Parse(<span class="string">"127.0.0.1"</span>);</span><br><span class="line">            Socket clientSocket = <span class="keyword">new</span> Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                clientSocket.Connect(<span class="keyword">new</span> IPEndPoint(ip, port)); <span class="comment">//配置服务器IP与端口  </span></span><br><span class="line">                Console.WriteLine(<span class="string">"连接服务器成功"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span></span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"连接服务器失败，请按回车键退出！"</span>);</span><br><span class="line">                Console.ReadLine();</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//循环读取输入数据</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"请输入"</span>);</span><br><span class="line">                <span class="keyword">string</span> sentstr = Console.ReadLine();</span><br><span class="line">                SentMsg(sentstr, clientSocket);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 长连接，不释放资源</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="sentstr"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="clientSocket"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SentMsg</span>(<span class="params"><span class="keyword">string</span> sentstr, Socket clientSocket</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">string</span> sendMessage = <span class="string">"你好"</span>;<span class="comment">//发送到服务端的内容</span></span><br><span class="line">            sendMessage = sentstr;<span class="comment">//发送到服务端的内容</span></span><br><span class="line">            <span class="comment">//向服务器发送数据，需要发送中文则需要使用Encoding.UTF8.GetBytes()，否则会乱码</span></span><br><span class="line">            clientSocket.Send(Encoding.UTF8.GetBytes(sendMessage));</span><br><span class="line">            Console.WriteLine(<span class="string">"向服务器发送消息："</span> + sendMessage);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//接受从服务器返回的信息</span></span><br><span class="line">            <span class="keyword">string</span> recvStr = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">byte</span>[] recvBytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> bytes;</span><br><span class="line">            bytes = clientSocket.Receive(recvBytes, recvBytes.Length, <span class="number">0</span>);    <span class="comment">//从服务器端接受返回信息 </span></span><br><span class="line">            recvStr += Encoding.UTF8.GetString(recvBytes, <span class="number">0</span>, bytes);</span><br><span class="line">            Console.WriteLine(<span class="string">"服务端发来消息：&#123;0&#125;"</span>, recvStr);    <span class="comment">//回显服务器的返回信息</span></span><br><span class="line">            <span class="comment">//clientSocket.Close();//关闭连接并释放资源//如果是长连接，注释掉close</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里需要注意的是：ip地址和端口号需要和服务器端保持一致。而且一定要服务器端先运行，客户端后运行。<br>Socket类的构造函数的参数中，ProtocolType.Tcp表示TCP协议。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/11/14/hololens2-development/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/14/hololens2-development/" class="post-title-link" itemprop="url">hololens2开发的一些bug及其解决方案、相关网址记录（长期更新）</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-11-14 13:20:58 / Modified: 13:36:11" itemprop="dateCreated datePublished" datetime="2020-11-14T13:20:58+08:00">2020-11-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hololens2%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
-                    <span itemprop="name">hololens2开发</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="bug及其解决方案"><a href="#bug及其解决方案" class="headerlink" title="bug及其解决方案"></a>bug及其解决方案</h2><p>跑demo过程中遇到的bug及其解决方法：</p>
-<ol>
-<li>Unity中生成的工程进入VS后，要在C盘build，而且确保磁盘空间充足（3GB以上）否则会缺少GameAssembly.lib，依据：<a href="https://answers.unity.com/questions/1688472/how-to-solve-mapfileparserexe-exited-with-code-532.htmlG" target="_blank" rel="noopener">https://answers.unity.com/questions/1688472/how-to-solve-mapfileparserexe-exited-with-code-532.htmlG</a></li>
-<li>Win10开发者模式开启时：错误0x800f0922<br>解决方法：<a href="https://www.youtube.com/watch?v=v2ZVtAIsEm4，方法2" target="_blank" rel="noopener">https://www.youtube.com/watch?v=v2ZVtAIsEm4，方法2</a></li>
-<li>Unity发布到UWP平台error：“IOException: Win32 IO returned 234. Path: C:\Program Files (x86)\Windows Kits.”<br>解决方法：<a href="https://blog.csdn.net/qq_41452267/article/details/106851395，方法1" target="_blank" rel="noopener">https://blog.csdn.net/qq_41452267/article/details/106851395，方法1</a></li>
-</ol>
-<h2 id="相关网址记录"><a href="#相关网址记录" class="headerlink" title="相关网址记录"></a>相关网址记录</h2><p>一些入门资料网站：<br><strong>介绍MR的网站</strong>：<a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/</a><br><strong>MRTK介绍网址</strong>：<a href="https://microsoft.github.io/MixedRealityToolkit-Unity/README.html" target="_blank" rel="noopener">https://microsoft.github.io/MixedRealityToolkit-Unity/README.html</a></p>
-<p><strong>通过PC端可以监视hololens 2的网站</strong>：<br><a href="http://127.0.0.1:10080/default.htm#Home" target="_blank" rel="noopener">http://127.0.0.1:10080/default.htm#Home</a><br>（USB连接，typec）<br>对应说明：<br><a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/using-the-windows-device-portal" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/using-the-windows-device-portal</a></p>
-<p><strong>iros2020中hololens2和ros联动控制机器人，人机交互</strong>：<br><a href="https://www.microsoft.com/en-us/research/event/mixed-reality-and-robotics-tutorial-iros-2020/#!agenda" target="_blank" rel="noopener">https://www.microsoft.com/en-us/research/event/mixed-reality-and-robotics-tutorial-iros-2020/#!agenda</a><br><a href="https://github.com/microsoft/mixed-reality-robot-interaction-demo" target="_blank" rel="noopener">https://github.com/microsoft/mixed-reality-robot-interaction-demo</a></p>
-<p><strong>hololens基于socket的UDP通信</strong>：<br><a href="https://blog.csdn.net/qq_44197337/article/details/105943914" target="_blank" rel="noopener">https://blog.csdn.net/qq_44197337/article/details/105943914</a></p>
-<p><strong>Vuforia与hololens联动介绍</strong>：<br><a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/vuforia-development-overview" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/vuforia-development-overview</a></p>
-<p><strong>unity开发hololens的教程</strong>：<br><a href="https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/tutorials" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/mixed-reality/develop/unity/tutorials</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/11/05/matlab-eqn-solve/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/05/matlab-eqn-solve/" class="post-title-link" itemprop="url">matlab推导和求解符号公式方法记录</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-11-05 16:30:44 / Modified: 16:45:22" itemprop="dateCreated datePublished" datetime="2020-11-05T16:30:44+08:00">2020-11-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
-                    <span itemprop="name">机器人开发</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用matlab推导和求解符号公式的程序，记录在此：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 方法1：</span></span><br><span class="line"><span class="comment">%计算异面直线的公垂线及其交点</span></span><br><span class="line">clc;clear;</span><br><span class="line">syms p1x p1y p1z</span><br><span class="line">syms p2x p2y p2z</span><br><span class="line">syms p3x p3y p3z</span><br><span class="line">syms p4x p4y p4z</span><br><span class="line">syms d1x d1y d1z</span><br><span class="line">syms d2x d2y d2z</span><br><span class="line">syms m n</span><br><span class="line"></span><br><span class="line">p1Vector = [p1x,p1y,p1z];</span><br><span class="line">p2Vector = [p2x,p2y,p2z];</span><br><span class="line">p3Vector = [p3x,p3y,p3z];</span><br><span class="line">p4Vector = [p4x,p4y,p4z];</span><br><span class="line"></span><br><span class="line">d1Vector = p2Vector-p1Vector;</span><br><span class="line">d2Vector = p4Vector-p3Vector;</span><br><span class="line"></span><br><span class="line"><span class="comment">% d1Vector = [d1x,d1y,d1z];</span></span><br><span class="line"><span class="comment">% d2Vector = [d2x,d2y,d2z];</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">i1Vector = p1Vector+m*d1Vector;</span><br><span class="line">i2Vector = p3Vector+n*d2Vector;</span><br><span class="line"></span><br><span class="line">vVector = i2Vector-i1Vector;</span><br><span class="line"></span><br><span class="line">eqn1 = [vVector(<span class="number">1</span>)*d1Vector(<span class="number">1</span>)+vVector(<span class="number">2</span>)*d1Vector(<span class="number">2</span>)+vVector(<span class="number">3</span>)*d1Vector(<span class="number">3</span>)==<span class="number">0</span>];</span><br><span class="line">eqn2 = [vVector(<span class="number">1</span>)*d2Vector(<span class="number">1</span>)+vVector(<span class="number">2</span>)*d2Vector(<span class="number">2</span>)+vVector(<span class="number">3</span>)*d2Vector(<span class="number">3</span>)==<span class="number">0</span>];</span><br><span class="line">eqn =  [eqn1,eqn2];</span><br><span class="line"></span><br><span class="line">[m,n]=solve(eqn,[m,n]);</span><br><span class="line"></span><br><span class="line">simplify(m);</span><br><span class="line">simplify(n);</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://giuyyt.github.io/2020/11/05/stewart-workspace-solve/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="giuyyt">
-      <meta itemprop="description" content="描述">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客园">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/05/stewart-workspace-solve/" class="post-title-link" itemprop="url">stewart平台的工作空间求解</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-11-05 13:52:18 / Modified: 16:27:57" itemprop="dateCreated datePublished" datetime="2020-11-05T13:52:18+08:00">2020-11-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
-                    <span itemprop="name">机器人开发</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>stewart平台的工作空间的求解，使用matlab编写<br>参考书目：file:///C:/Users/giuyyt/Desktop/并联机器人机构学理论及控制.pdf<br>页码：p172、173等</p>
-<h2 id="总函数"><a href="#总函数" class="headerlink" title="总函数"></a>总函数</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span></span><br><span class="line"><span class="comment">%Stewart平台工作空间求解</span></span><br><span class="line"><span class="comment">%尝试两种方法：扫描方法和蒙特卡洛法</span></span><br><span class="line"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span></span><br><span class="line">clc;clear;</span><br><span class="line">tic</span><br><span class="line"><span class="comment">%% stewart平台的参数给定</span></span><br><span class="line"><span class="comment">%global参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%动平台相对静平台初始位置坐标</span></span><br><span class="line"><span class="keyword">global</span> xp yp zp;</span><br><span class="line"></span><br><span class="line">xp = <span class="number">0</span>;</span><br><span class="line">yp = <span class="number">0</span>;</span><br><span class="line">zp = <span class="number">5.5</span>;</span><br><span class="line"><span class="comment">% zp = 90;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%R：动平台外接圆半径；r：静平台外接圆半径</span></span><br><span class="line"><span class="keyword">global</span> R r; </span><br><span class="line"></span><br><span class="line">R = <span class="number">1</span>;</span><br><span class="line">r = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%%动平台铰点安装角</span></span><br><span class="line"><span class="keyword">global</span> upAngle0 upAngle1 upAngle2 upAngle3 upAngle4 upAngle5;</span><br><span class="line"></span><br><span class="line">upAngle0 = <span class="number">15</span>;</span><br><span class="line">upAngle1 = <span class="number">105</span>;</span><br><span class="line">upAngle2 = <span class="number">135</span>;</span><br><span class="line">upAngle3 = <span class="number">225</span>;</span><br><span class="line">upAngle4 = <span class="number">255</span>;</span><br><span class="line">upAngle5 = <span class="number">345</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%并联机器人的限制范围，求工作空间时用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%电推杆最大长度与最小长度（绝对量）</span></span><br><span class="line"><span class="keyword">global</span> poleMaxLen poleMinLen;</span><br><span class="line">poleMaxLen = <span class="number">7.5</span>;</span><br><span class="line">poleMinLen = <span class="number">4.5</span>;</span><br><span class="line"><span class="comment">%虎克铰（下）最大转角和最小转角(°)</span></span><br><span class="line"><span class="keyword">global</span> hookeMaxAngle hookeMinAngle;</span><br><span class="line">hookeMaxAngle = <span class="number">45</span>;</span><br><span class="line">hookeMinAngle = <span class="number">-45</span>;</span><br><span class="line"><span class="comment">%球铰（上）最大转角和最小转角(°)</span></span><br><span class="line"><span class="keyword">global</span> sphereMaxAngle sphereMinAngle;</span><br><span class="line">sphereMaxAngle = <span class="number">45</span>;</span><br><span class="line">sphereMinAngle = <span class="number">-45</span>;</span><br><span class="line"><span class="comment">%电推杆半径（mm）</span></span><br><span class="line"><span class="keyword">global</span> poleRad;</span><br><span class="line">poleRad = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%%静平台铰点安装角</span></span><br><span class="line"><span class="keyword">global</span> downAngle0 downAngle1 downAngle2 downAngle3 downAngle4 downAngle5;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">downAngle0 = <span class="number">30</span>;</span><br><span class="line">downAngle1 = <span class="number">90</span>;</span><br><span class="line">downAngle2 = <span class="number">150</span>;</span><br><span class="line">downAngle3 = <span class="number">210</span>;</span><br><span class="line">downAngle4 = <span class="number">270</span>;</span><br><span class="line">downAngle5 = <span class="number">330</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%运动范围限制</span></span><br><span class="line"><span class="keyword">global</span> xMin xMax;</span><br><span class="line"><span class="keyword">global</span> yMin yMax;</span><br><span class="line"><span class="keyword">global</span> zMin zMax;</span><br><span class="line"><span class="keyword">global</span> rollMin rollMax;</span><br><span class="line"><span class="keyword">global</span> pitchMin pitchMax;</span><br><span class="line"><span class="keyword">global</span> yawMin yawMax;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">xMin = <span class="number">-10</span>;xMax = <span class="number">10</span>;</span><br><span class="line">yMin = <span class="number">-10</span>;yMax = <span class="number">10</span>;</span><br><span class="line">zMin = <span class="number">-10</span>; zMax = <span class="number">10</span>;</span><br><span class="line"><span class="comment">% xMin = -40;xMax = 40;</span></span><br><span class="line"><span class="comment">% yMin = -40;yMax = 40;</span></span><br><span class="line"><span class="comment">% zMin = -40; zMax =40;</span></span><br><span class="line">rollMin = <span class="number">-13.5</span>; rollMax = <span class="number">13.5</span>;</span><br><span class="line">pitchMin = <span class="number">-14.2</span>; pitchMax = <span class="number">14.2</span>;</span><br><span class="line">yawMin = <span class="number">-38</span>; yawMax = <span class="number">38</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 蒙特卡洛法</span></span><br><span class="line"><span class="comment">% expeNum = 10000;%随机取样次数</span></span><br><span class="line"><span class="comment">% acceptPointArray = [];</span></span><br><span class="line"><span class="comment">% totalPointArray = [];</span></span><br><span class="line"><span class="comment">% i = 0;</span></span><br><span class="line"><span class="comment">% </span></span><br><span class="line"><span class="comment">% while(i&lt;expeNum)</span></span><br><span class="line"><span class="comment">%      %取样,rand在0-1取样</span></span><br><span class="line"><span class="comment">%     x = (xMax-xMin)*rand+xMin;</span></span><br><span class="line"><span class="comment">%     y = (yMax-yMin)*rand+yMin;</span></span><br><span class="line"><span class="comment">%     z = (zMax-zMin)*rand+zMin;</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     %姿态需要固定</span></span><br><span class="line"><span class="comment">%     roll = 0;</span></span><br><span class="line"><span class="comment">%     pitch = 0;</span></span><br><span class="line"><span class="comment">%     yaw = 0;</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     totalPointArray = [</span></span><br><span class="line"><span class="comment">%             totalPointArray;</span></span><br><span class="line"><span class="comment">%             x,y,z</span></span><br><span class="line"><span class="comment">%             ];</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     %判断是否可行</span></span><br><span class="line"><span class="comment">%     isSatisfy = isSatisfyTotal(x,y,z,roll,pitch,yaw);</span></span><br><span class="line"><span class="comment">%     </span></span><br><span class="line"><span class="comment">%     if(isSatisfy==1)</span></span><br><span class="line"><span class="comment">%         acceptPointArray = [</span></span><br><span class="line"><span class="comment">%             acceptPointArray;</span></span><br><span class="line"><span class="comment">%             x,y,z</span></span><br><span class="line"><span class="comment">%             ];</span></span><br><span class="line"><span class="comment">%         i = i +1;</span></span><br><span class="line"><span class="comment">%     else</span></span><br><span class="line"><span class="comment">%     end</span></span><br><span class="line"><span class="comment">% end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> m = <span class="number">1</span>:<span class="number">3</span></span><br><span class="line">    <span class="comment">%% 扫描法</span></span><br><span class="line">    <span class="comment">%%%参数设定</span></span><br><span class="line">    <span class="built_in">i</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">j</span> = <span class="number">0</span>;</span><br><span class="line">    k = <span class="number">0</span>;</span><br><span class="line">    zNum = <span class="number">400</span>;</span><br><span class="line">    gammaNum = <span class="number">200</span>;</span><br><span class="line">    deltaRho = <span class="number">0.01</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">%姿态需要固定</span></span><br><span class="line">    roll = (m<span class="number">-1</span>)*<span class="number">5</span>;</span><br><span class="line">    pitch = (m<span class="number">-1</span>)*<span class="number">5</span>;</span><br><span class="line">    yaw = (m<span class="number">-1</span>)*<span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">%%%实现</span></span><br><span class="line">    deltaGamma = <span class="number">2</span>*<span class="built_in">pi</span>/gammaNum;</span><br><span class="line">    deltaZ = (zMax-zMin)/zNum;</span><br><span class="line">    edgePointArray = [];<span class="comment">%记录边缘上的点的数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:zNum</span><br><span class="line">        rhoTemp = <span class="number">0</span>;</span><br><span class="line">        gammaTemp = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        zTemp = zMin+deltaZ*<span class="built_in">i</span>;</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span>:gammaNum</span><br><span class="line">            isSatisfyLast = <span class="number">0</span>;<span class="comment">%记录上一次是否符合要求</span></span><br><span class="line">            gammaTemp = gammaTemp+deltaGamma;</span><br><span class="line">            k = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(rhoTemp&lt;<span class="number">0</span>)</span><br><span class="line">                rhoTemp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            deltaRho = <span class="built_in">abs</span>(deltaRho);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">                <span class="comment">%将极坐标转换成直角坐标</span></span><br><span class="line">                [xTemp,yTemp] = polarCoo2CarsCoo(rhoTemp,gammaTemp);</span><br><span class="line">                <span class="comment">%判断是否可行</span></span><br><span class="line">                isSatisfy = isSatisfyTotal(xTemp,yTemp,zTemp,roll,pitch,yaw);</span><br><span class="line"></span><br><span class="line">                <span class="comment">%第一次</span></span><br><span class="line">                <span class="keyword">if</span>(k==<span class="number">0</span>)</span><br><span class="line">                    isSatisfyLast = isSatisfy; </span><br><span class="line">                    <span class="comment">%第一次在范围内，不断增大极径直到到达极限</span></span><br><span class="line">                    <span class="keyword">if</span>(isSatisfy == <span class="number">1</span>)</span><br><span class="line">                        deltaRho = deltaRho*<span class="number">1</span>; </span><br><span class="line">                    <span class="comment">%第一次不在范围内，不断缩小极径直到到达极限    </span></span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        deltaRho = deltaRho*(<span class="number">-1</span>); </span><br><span class="line">                    <span class="keyword">end</span></span><br><span class="line">                    rhoTemp = rhoTemp+deltaRho;</span><br><span class="line"></span><br><span class="line">                <span class="comment">%非第一次</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="comment">%若上一次状态与本次相同，继续变化极径；</span></span><br><span class="line">                    <span class="keyword">if</span>(isSatisfy==isSatisfyLast&amp;&amp;rhoTemp&gt;<span class="number">0</span>)</span><br><span class="line">                        rhoTemp = rhoTemp+deltaRho;</span><br><span class="line">                        isSatisfyLast = isSatisfy; </span><br><span class="line">                    <span class="comment">%若上一次状态与本次不同，记录本次点，进入下一个gamma角</span></span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        <span class="keyword">if</span>(k&gt;<span class="number">1</span>)</span><br><span class="line">                            edgePointArray = [edgePointArray;xTemp,yTemp,zTemp];</span><br><span class="line">                        <span class="keyword">end</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                k = k+<span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">%% 画图</span></span><br><span class="line">    <span class="built_in">plot3</span>(edgePointArray(:,<span class="number">1</span>),edgePointArray(:,<span class="number">2</span>),edgePointArray(:,<span class="number">3</span>));</span><br><span class="line">    <span class="built_in">hold</span> on;</span><br><span class="line">    view(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    toc</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%标出（0，0）点</span></span><br><span class="line"><span class="built_in">scatter3</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">% surf(X,Y,Z),view(90,0)</span></span><br><span class="line"><span class="comment">% title('侧视图')</span></span><br><span class="line"><span class="comment">% subplot(2,2,3)</span></span><br><span class="line"><span class="comment">% surf(X,Y,Z),view(0,0)</span></span><br><span class="line"><span class="comment">% title('正视图')</span></span><br><span class="line"><span class="comment">% subplot(2,2,4)</span></span><br><span class="line"><span class="comment">% surf(X,Y,Z),view(0,90)</span></span><br><span class="line"><span class="comment">% title('俯视图')</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="分函数："><a href="#分函数：" class="headerlink" title="分函数："></a>分函数：</h2><h3 id="将极坐标转换为直角坐标"><a href="#将极坐标转换为直角坐标" class="headerlink" title="将极坐标转换为直角坐标"></a>将极坐标转换为直角坐标</h3><p>157行的函数-&gt;polarCoo2CarsCoo:</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[xOut,yOut]</span> = <span class="title">polarCoo2CarsCoo</span><span class="params">(rhoIn,gammaIn)</span></span></span><br><span class="line"><span class="comment">%polarCoo2CarsCoo 将极坐标转换为直角坐标</span></span><br><span class="line"></span><br><span class="line">xOut = rhoIn*<span class="built_in">cos</span>(gammaIn);</span><br><span class="line">yOut = rhoIn*<span class="built_in">sin</span>(gammaIn);</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h3 id="输入并联机器人的平动量和姿态，输出其是否能到达"><a href="#输入并联机器人的平动量和姿态，输出其是否能到达" class="headerlink" title="输入并联机器人的平动量和姿态，输出其是否能到达"></a>输入并联机器人的平动量和姿态，输出其是否能到达</h3><p>159行的函数-&gt;isSatisfyTotal:</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[isSatisfy]</span> = <span class="title">isSatisfyTotal</span><span class="params">(x,y,z,roll,pitch,yaw)</span></span></span><br><span class="line"><span class="comment">%isSatisfyTotal 输入并联机器人的平动量和姿态，输出其是否能到达</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%电推杆最大长度与最小长度（绝对量）</span></span><br><span class="line"><span class="keyword">global</span> poleMaxLen poleMinLen;</span><br><span class="line"><span class="comment">%虎克铰（下）最大转角和最小转角</span></span><br><span class="line"><span class="keyword">global</span> hookeMaxAngle hookeMinAngle;</span><br><span class="line"><span class="comment">%球铰（上）最大转角和最小转角</span></span><br><span class="line"><span class="keyword">global</span> sphereMaxAngle sphereMinAngle;</span><br><span class="line"><span class="comment">%电推杆半径</span></span><br><span class="line"><span class="keyword">global</span> poleRad;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[lenArray,vectorArray,brArray,BrArray] = stewartInverseKinematicFunction(x,y,z,roll,pitch,yaw);</span><br><span class="line"></span><br><span class="line"><span class="comment">%电推杆长度</span></span><br><span class="line">lenSatisfy = isLenSatisfy(lenArray,poleMinLen,poleMaxLen);</span><br><span class="line"><span class="comment">%虎克铰角度</span></span><br><span class="line">hookeAngleSatisfy = isHookeAngleSatisfy(vectorArray,hookeMinAngle,hookeMaxAngle);</span><br><span class="line"><span class="comment">% hookeAngleSatisfy  = 1;</span></span><br><span class="line"><span class="comment">%球铰角度</span></span><br><span class="line">sphereAngleSatisfy = isSphereAngleSatisfy(vectorArray,sphereMinAngle,sphereMaxAngle,roll,pitch,yaw);</span><br><span class="line"><span class="comment">% sphereAngleSatisfy = 1;</span></span><br><span class="line"><span class="comment">%干涉</span></span><br><span class="line">interferenceSatisfy = isInterferenceSatisfy(lenArray,vectorArray,brArray,BrArray,poleRad);</span><br><span class="line"><span class="comment">% interferenceSatisfy = 1;</span></span><br><span class="line"></span><br><span class="line">isSatisfy = lenSatisfy*hookeAngleSatisfy*sphereAngleSatisfy*interferenceSatisfy;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="stewart平台运动学反解"><a href="#stewart平台运动学反解" class="headerlink" title="stewart平台运动学反解"></a>stewart平台运动学反解</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[lenArray,vectorArray,brArray,BrArray]</span> = <span class="title">stewartInverseKinematicFunction</span><span class="params">(x,y,z,roll,pitch,yaw)</span></span></span><br><span class="line"><span class="comment">%stewartInverseKinematicFunction 求解stewart平台逆解</span></span><br><span class="line"><span class="comment">%输入6个自由度上的位移量</span></span><br><span class="line"><span class="comment">%输出6个杆的杆长和对应的杆向量（静平台指向动平台）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%-----------------------stewart平台本体参数-------------------------------------</span></span><br><span class="line"><span class="keyword">global</span> xp yp zp;</span><br><span class="line"><span class="keyword">global</span> R r;</span><br><span class="line"><span class="keyword">global</span> upAngle0 upAngle1 upAngle2 upAngle3 upAngle4 upAngle5;</span><br><span class="line"><span class="keyword">global</span> downAngle0 downAngle1 downAngle2 downAngle3 downAngle4 downAngle5;</span><br><span class="line"></span><br><span class="line"><span class="comment">%-------------------------动平台的位恣-------------------------------------</span></span><br><span class="line"></span><br><span class="line">P = [ x+xp; y+yp; z+zp ];<span class="comment">%动平台圆心点相对静平台的坐标</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%--------------------------平台的基本尺寸----------------------------------</span></span><br><span class="line"><span class="comment">%% 方法1：输入角度</span></span><br><span class="line"><span class="comment">%----------动平台的6个铰点，在动平台坐标系中的位置矢量---------------------</span></span><br><span class="line">bR1 = [ R*<span class="built_in">cosd</span>( upAngle0 ); R*<span class="built_in">sind</span>( upAngle0 );<span class="number">0</span> ];</span><br><span class="line">bR2 = [ R*<span class="built_in">cosd</span>( upAngle1 ); R*<span class="built_in">sind</span>( upAngle1 ); <span class="number">0</span> ];</span><br><span class="line">bR3 = [ R*<span class="built_in">cosd</span>( upAngle2 ); R*<span class="built_in">sind</span>( upAngle2 ); <span class="number">0</span> ];</span><br><span class="line">bR4 = [ R*<span class="built_in">cosd</span>( upAngle3 ); R*<span class="built_in">sind</span>( upAngle3 ); <span class="number">0</span> ];</span><br><span class="line">bR5 = [ R*<span class="built_in">cosd</span>( upAngle4 ); R*<span class="built_in">sind</span>( upAngle4 ); <span class="number">0</span> ];</span><br><span class="line">bR6 = [ R*<span class="built_in">cosd</span>( upAngle5 ); R*<span class="built_in">sind</span>( upAngle5 ); <span class="number">0</span> ];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">% </span></span><br><span class="line"><span class="comment">% ----------静平台的6个铰点，在静平台坐标系中的位置矢量---------------------</span></span><br><span class="line">Br1 = [ r*<span class="built_in">cosd</span>( downAngle0 ) ;r*<span class="built_in">sind</span>( downAngle0 );<span class="number">0</span> ];</span><br><span class="line">Br2 = [ r*<span class="built_in">cosd</span>( downAngle1 ) ; r*<span class="built_in">sind</span>( downAngle1 );<span class="number">0</span> ];</span><br><span class="line">Br3 = [ r*<span class="built_in">cosd</span>( downAngle2 ) ; r*<span class="built_in">sind</span>( downAngle2 );<span class="number">0</span> ];</span><br><span class="line">Br4 = [ r*<span class="built_in">cosd</span>( downAngle3 ) ; r*<span class="built_in">sind</span>( downAngle3 );<span class="number">0</span> ];</span><br><span class="line">Br5 = [ r*<span class="built_in">cosd</span>( downAngle4 ) ; r*<span class="built_in">sind</span>( downAngle4 );<span class="number">0</span> ];</span><br><span class="line">Br6 = [ r*<span class="built_in">cosd</span>( downAngle5 ) ; r*<span class="built_in">sind</span>( downAngle5 );<span class="number">0</span> ];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 方法2：直接输入坐标</span></span><br><span class="line"><span class="comment">% ----------动平台的6个铰点，在动平台坐标系中的位置矢量---------------------</span></span><br><span class="line"><span class="comment">% bR1 = [ 13.39; 15.81;0 ];</span></span><br><span class="line"><span class="comment">% bR2 = [ -13.39; 15.81; 0 ];</span></span><br><span class="line"><span class="comment">% bR3 = [-20.39; 3.69; 0 ];</span></span><br><span class="line"><span class="comment">% bR4 = [-7; -19.5; 0 ];</span></span><br><span class="line"><span class="comment">% bR5 = [7;-19.5; 0 ];</span></span><br><span class="line"><span class="comment">% bR6 = [20.39;3.69; 0 ];</span></span><br><span class="line"><span class="comment">% </span></span><br><span class="line"><span class="comment">% </span></span><br><span class="line"><span class="comment">% </span></span><br><span class="line"><span class="comment">% % ----------静平台的6个铰点，在静平台坐标系中的位置矢量---------------------</span></span><br><span class="line"><span class="comment">% Br1 = [10.7;25.025;0 ];</span></span><br><span class="line"><span class="comment">% Br2 = [-10.7; 25.025;0 ];</span></span><br><span class="line"><span class="comment">% Br3 = [-27;-3.23;0 ];</span></span><br><span class="line"><span class="comment">% Br4 = [-16.3;-21.77;0 ];</span></span><br><span class="line"><span class="comment">% Br5 = [16.3;-21.77;0 ];</span></span><br><span class="line"><span class="comment">% Br6 = [27;-3.23;0 ];</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 其它</span></span><br><span class="line"><span class="comment">%相对固定轴，RPY的XYZ</span></span><br><span class="line"><span class="comment">%相当于欧拉角中的ZYX，绕动轴转动</span></span><br><span class="line">TransM = rotz(yaw) * roty(pitch) * rotx(roll); <span class="comment">% XYZ旋转矩阵</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%----------动平台的6个铰点，在静平台坐标系中的位置矢量---------------------</span></span><br><span class="line">br1 = TransM * bR1 + P;</span><br><span class="line">br2 = TransM * bR2 + P;</span><br><span class="line">br3 = TransM * bR3 + P;</span><br><span class="line">br4 = TransM * bR4 + P;</span><br><span class="line">br5 = TransM * bR5 + P;</span><br><span class="line">br6 = TransM * bR6 + P;</span><br><span class="line"></span><br><span class="line"><span class="comment">%--动平台的6个铰点位置矢量，减去，静平台的6个铰点位置矢量，得到每个杆长矢量</span></span><br><span class="line">L1 = br1 - Br1;</span><br><span class="line">L2 = br2 - Br2;</span><br><span class="line">L3 = br3 - Br3;</span><br><span class="line">L4 = br4 - Br4;</span><br><span class="line">L5 = br5 - Br5;</span><br><span class="line">L6 = br6 - Br6;</span><br><span class="line"></span><br><span class="line"><span class="comment">%-----------求模，得到每个杆的杆长-----------------------------------------</span></span><br><span class="line">LenL1 = norm(L1);</span><br><span class="line">LenL2 = norm(L2);</span><br><span class="line">LenL3 = norm(L3);</span><br><span class="line">LenL4 = norm(L4);</span><br><span class="line">LenL5 = norm(L5);</span><br><span class="line">LenL6 = norm(L6);</span><br><span class="line"></span><br><span class="line">L1 = L1/LenL1;</span><br><span class="line">L2 = L2/LenL2;</span><br><span class="line">L3 = L3/LenL3;</span><br><span class="line">L4 = L4/LenL4;</span><br><span class="line">L5 = L5/LenL5;</span><br><span class="line">L6 = L6/LenL6;</span><br><span class="line"></span><br><span class="line">lenArray = [LenL1;LenL2;LenL3;LenL4;LenL5;LenL6];</span><br><span class="line">vectorArray = [</span><br><span class="line">    L1,L2,L3,L4,L5,L6];</span><br><span class="line"></span><br><span class="line">brArray = [br1,br2,br3,br4,br5,br6];</span><br><span class="line">BrArray = [Br1,Br2,Br3,Br4,Br5,Br6];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-<h4 id="判断电推杆长度是否符合要求"><a href="#判断电推杆长度是否符合要求" class="headerlink" title="判断电推杆长度是否符合要求"></a>判断电推杆长度是否符合要求</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[isSatisfy]</span> = <span class="title">isLenSatisfy</span><span class="params">(lenArray,minLen,maxLen)</span></span></span><br><span class="line"><span class="comment">%isLenSatisfy 输入长度数组，判断电机长度是否达标（6*1）</span></span><br><span class="line"><span class="comment">%1达标，0不达标</span></span><br><span class="line">ArrayNum = <span class="built_in">size</span>(lenArray,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">i</span> = <span class="number">0</span>;</span><br><span class="line">isSatisfy = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:ArrayNum</span><br><span class="line">    temp = lenArray(<span class="built_in">i</span>);</span><br><span class="line">    <span class="keyword">if</span>(temp&lt;=maxLen&amp;&amp;temp&gt;=minLen)</span><br><span class="line">        isSatisfy = isSatisfy*<span class="number">1</span>; </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        isSatisfy = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="判断虎克铰的角度是否符合要求"><a href="#判断虎克铰的角度是否符合要求" class="headerlink" title="判断虎克铰的角度是否符合要求"></a>判断虎克铰的角度是否符合要求</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[isSatisfy]</span> = <span class="title">isHookeAngleSatisfy</span><span class="params">(vectorArray,minHookeAngle,maxHookeAngle)</span></span></span><br><span class="line"><span class="comment">%isHookeAngleSatisfy 输入向量数组，虎克铰（下面的铰）最小角和最大角</span></span><br><span class="line"><span class="comment">%1达标，0不达标</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%静平台姿态：总是(0,0,1)</span></span><br><span class="line">staticVector = [<span class="number">0</span>;<span class="number">0</span>;<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ArrayNum = <span class="built_in">size</span>(vectorArray,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">i</span> = <span class="number">0</span>;</span><br><span class="line">isSatisfy = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:ArrayNum</span><br><span class="line">    temp = vectorArray(:,<span class="built_in">i</span>);</span><br><span class="line">    hookeAngleTemp = <span class="built_in">acosd</span>(<span class="built_in">dot</span>(temp,staticVector)); </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(hookeAngleTemp&lt;=maxHookeAngle&amp;&amp;hookeAngleTemp&gt;=minHookeAngle)</span><br><span class="line">        isSatisfy = isSatisfy*<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        isSatisfy = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-<h4 id="判断球铰的角度是否符合要求"><a href="#判断球铰的角度是否符合要求" class="headerlink" title="判断球铰的角度是否符合要求"></a>判断球铰的角度是否符合要求</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[isSatisfy]</span> = <span class="title">isSphereAngleSatisfy</span><span class="params">(vectorArray,minSphereAngle,maxSphereAngle,roll,pitch,yaw)</span></span></span><br><span class="line"><span class="comment">%isSphereAngleSatisfy 输入向量数组，球铰（上面的铰）最小角和最大角，rpy角，输出是否符合球铰角度要求</span></span><br><span class="line"><span class="comment">%1达标，0不达标</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ArrayNum = <span class="built_in">size</span>(vectorArray,<span class="number">2</span>);</span><br><span class="line"><span class="comment">%相对固定轴，RPY的XYZ</span></span><br><span class="line"><span class="comment">%相当于欧拉角中的ZYX</span></span><br><span class="line">TransM = rotz(yaw) * roty(pitch) * rotx(roll); <span class="comment">% XYZ旋转矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%z轴在静平台坐标系中的方向矢量</span></span><br><span class="line"><span class="comment">%机器人学蔡自兴p30</span></span><br><span class="line">axisZ = TransM(:,<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">%球铰的向量方向：取负号</span></span><br><span class="line">sphereAxis = -axisZ;</span><br><span class="line"></span><br><span class="line"><span class="built_in">i</span> = <span class="number">0</span>;</span><br><span class="line">isSatisfy = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:ArrayNum</span><br><span class="line">    temp = -vectorArray(:,<span class="built_in">i</span>);<span class="comment">%注意要取负号</span></span><br><span class="line">    sphereAngleTemp = <span class="built_in">acosd</span>(<span class="built_in">dot</span>(temp,sphereAxis)); </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(sphereAngleTemp&lt;=maxSphereAngle&amp;&amp;sphereAngleTemp&gt;=minSphereAngle)</span><br><span class="line">        isSatisfy = isSatisfy*<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        isSatisfy = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="判断杆是否干涉"><a href="#判断杆是否干涉" class="headerlink" title="判断杆是否干涉"></a>判断杆是否干涉</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[isSatisfy]</span> = <span class="title">isInterferenceSatisfy</span><span class="params">(lenArray,vectorArray,brArray,BrArray,poleRad)</span></span></span><br><span class="line"><span class="comment">%isInterferenceSatisfy 判断连杆之间是否干涉</span></span><br><span class="line"><span class="comment">%输入连杆的直径，长度和方向,以及动静平台的铰点在静坐标系下的坐标；</span></span><br><span class="line"><span class="comment">%是为1，否为0</span></span><br><span class="line"></span><br><span class="line">ArrayNum = <span class="built_in">size</span>(lenArray,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">i</span> = <span class="number">0</span>;</span><br><span class="line">isSatisfy = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:ArrayNum</span><br><span class="line">    <span class="comment">%判断相邻两杆之间的最短距离</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">i</span>==ArrayNum)</span><br><span class="line">        brArrayTwo = [brArray(:,<span class="built_in">i</span>),brArray(:,<span class="number">1</span>)];</span><br><span class="line">        BrArrayTwo = [BrArray(:,<span class="built_in">i</span>),BrArray(:,<span class="number">1</span>)];</span><br><span class="line">        vectorArrayTwo = [vectorArray(:,<span class="built_in">i</span>),vectorArray(:,<span class="number">1</span>)];</span><br><span class="line">        lenArrayTwo = [lenArray(<span class="built_in">i</span>),lenArray(<span class="number">1</span>)];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        brArrayTwo = [brArray(:,<span class="built_in">i</span>),brArray(:,<span class="built_in">i</span>+<span class="number">1</span>)];</span><br><span class="line">        BrArrayTwo = [BrArray(:,<span class="built_in">i</span>),BrArray(:,<span class="built_in">i</span>+<span class="number">1</span>)];</span><br><span class="line">        vectorArrayTwo = [vectorArray(:,<span class="built_in">i</span>),vectorArray(:,<span class="built_in">i</span>+<span class="number">1</span>)];</span><br><span class="line">        lenArrayTwo = [lenArray(<span class="built_in">i</span>),lenArray(<span class="built_in">i</span>+<span class="number">1</span>)];</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    a = <span class="number">0</span>;</span><br><span class="line">    minDis = brokenLineIntersaction(brArrayTwo,BrArrayTwo,vectorArrayTwo,lenArrayTwo);</span><br><span class="line">    <span class="comment">%将最短距离和杆的半径进行对比</span></span><br><span class="line">    <span class="keyword">if</span>(minDis&gt;<span class="number">2</span>*poleRad)</span><br><span class="line">        isSatisfy = isSatisfy*<span class="number">1</span>; </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        isSatisfy = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-<h5 id="求空间中两条线段之间最短距离"><a href="#求空间中两条线段之间最短距离" class="headerlink" title="求空间中两条线段之间最短距离"></a>求空间中两条线段之间最短距离</h5><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[dis]</span> = <span class="title">brokenLineIntersaction</span><span class="params">(brArrayTwo,BrArrayTwo,vectorArrayTwo,lenArrayTwo)</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">%brokenLineIntersaction </span></span><br><span class="line"><span class="comment">%输入两条线段的起始点（两个列向量），方向向量（两个列向量），长度;以数组形式输入</span></span><br><span class="line"><span class="comment">%输出两者的最短距离</span></span><br><span class="line"><span class="comment">%分成平行、异面、相交三种情形，每种情形再分类讨论。</span></span><br><span class="line">epsilon = <span class="number">1e-2</span>;</span><br><span class="line"></span><br><span class="line">dis = <span class="number">0</span>;</span><br><span class="line"><span class="comment">%求公法线向量</span></span><br><span class="line">ni = <span class="built_in">cross</span>(vectorArrayTwo(:,<span class="number">1</span>),vectorArrayTwo(:,<span class="number">2</span>));</span><br><span class="line"><span class="comment">%若平行</span></span><br><span class="line"><span class="keyword">if</span>(norm(ni)&lt;epsilon)</span><br><span class="line">    pLine = brArrayTwo(:,<span class="number">2</span>)-brArrayTwo(:,<span class="number">1</span>);</span><br><span class="line">    dis =  norm(<span class="built_in">cross</span>(pLine,vectorArrayTwo(:,<span class="number">1</span>)));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">ni = ni/norm(ni);</span><br><span class="line"></span><br><span class="line"><span class="comment">%异面</span></span><br><span class="line"><span class="comment">%最短距离</span></span><br><span class="line"><span class="comment">%求出公垂线和两者的交点</span></span><br><span class="line">[m,n] = linePerpCalFun(BrArrayTwo(:,<span class="number">1</span>),brArrayTwo(:,<span class="number">1</span>),BrArrayTwo(:,<span class="number">2</span>),brArrayTwo(:,<span class="number">2</span>));</span><br><span class="line"><span class="comment">%判断交点是否分别在两者上</span></span><br><span class="line"><span class="keyword">if</span>(m&lt;=<span class="number">1</span>&amp;&amp;m&gt;=<span class="number">0</span>&amp;&amp;n&lt;=<span class="number">1</span>&amp;&amp;n&gt;=<span class="number">0</span>)</span><br><span class="line">    <span class="comment">%是，则距离就是垂线长度</span></span><br><span class="line">    deltaTemp = <span class="built_in">abs</span>(<span class="built_in">dot</span>(ni,brArrayTwo(:,<span class="number">2</span>)-brArrayTwo(:,<span class="number">1</span>)));</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="comment">%否，距离要根据端点到另一条线段的距离来算</span></span><br><span class="line">    <span class="comment">%a点和线段cd距离；b点和线段cd距离</span></span><br><span class="line">    <span class="comment">%c点和线段ab距离；d点和线段ab距离</span></span><br><span class="line">    <span class="comment">%四者取最小者</span></span><br><span class="line">   <span class="comment">%点br1与线段br2,Br2的距离</span></span><br><span class="line">   dis1 = disPointLineSeg(brArrayTwo(:,<span class="number">1</span>),brArrayTwo(:,<span class="number">2</span>),BrArrayTwo(:,<span class="number">2</span>));</span><br><span class="line">   <span class="comment">%点Br1与线段br2,Br2的距离</span></span><br><span class="line">   dis2 = disPointLineSeg(BrArrayTwo(:,<span class="number">1</span>),brArrayTwo(:,<span class="number">2</span>),BrArrayTwo(:,<span class="number">2</span>));</span><br><span class="line">   <span class="comment">%点br2与线段br1,Br1的距离</span></span><br><span class="line">   dis3 = disPointLineSeg(brArrayTwo(:,<span class="number">2</span>),brArrayTwo(:,<span class="number">1</span>),BrArrayTwo(:,<span class="number">1</span>));</span><br><span class="line">   <span class="comment">%点Br2与线段br1,Br1的距离</span></span><br><span class="line">   dis4 = disPointLineSeg(BrArrayTwo(:,<span class="number">2</span>),brArrayTwo(:,<span class="number">1</span>),BrArrayTwo(:,<span class="number">1</span>));</span><br><span class="line">   <span class="comment">%最短</span></span><br><span class="line">   deltaTemp = <span class="built_in">min</span>([dis1,dis2,dis3,dis4]);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(deltaTemp&lt;epsilon)</span><br><span class="line">    <span class="comment">%若最短距离为0,则在同一平面内</span></span><br><span class="line">    <span class="comment">%a点和线段cd距离；b点和线段cd距离</span></span><br><span class="line">    <span class="comment">%c点和线段ab距离；d点和线段ab距离</span></span><br><span class="line">    <span class="comment">%四者取最小者</span></span><br><span class="line">   <span class="comment">%点br1与线段br2,Br2的距离</span></span><br><span class="line">   dis1 = disPointLineSeg(brArrayTwo(:,<span class="number">1</span>),brArrayTwo(:,<span class="number">2</span>),BrArrayTwo(:,<span class="number">2</span>));</span><br><span class="line">   <span class="comment">%点Br1与线段br2,Br2的距离</span></span><br><span class="line">   dis2 = disPointLineSeg(BrArrayTwo(:,<span class="number">1</span>),brArrayTwo(:,<span class="number">2</span>),BrArrayTwo(:,<span class="number">2</span>));</span><br><span class="line">   <span class="comment">%点br2与线段br1,Br1的距离</span></span><br><span class="line">   dis3 = disPointLineSeg(brArrayTwo(:,<span class="number">2</span>),brArrayTwo(:,<span class="number">1</span>),BrArrayTwo(:,<span class="number">1</span>));</span><br><span class="line">   <span class="comment">%点Br2与线段br1,Br1的距离</span></span><br><span class="line">   dis4 = disPointLineSeg(BrArrayTwo(:,<span class="number">2</span>),brArrayTwo(:,<span class="number">1</span>),BrArrayTwo(:,<span class="number">1</span>));</span><br><span class="line">   <span class="comment">%最短</span></span><br><span class="line">   dis = <span class="built_in">min</span>([dis1,dis2,dis3,dis4]);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    dis = deltaTemp;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-<h6 id="空间中点到线段最短距离"><a href="#空间中点到线段最短距离" class="headerlink" title="空间中点到线段最短距离"></a>空间中点到线段最短距离</h6><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[minDis]</span> = <span class="title">disPointLineSeg</span><span class="params">(pointCoo,linePoint1Coo,linePoint2Coo)</span></span></span><br><span class="line"><span class="comment">%disPointLineSeg 输入三维点的坐标，三维线段的坐标（即始末两点的坐标），均为列向量形式</span></span><br><span class="line"><span class="comment">% 输出最短距离</span></span><br><span class="line"><span class="comment">%https://blog.csdn.net/Mr_HCW/article/details/82816490</span></span><br><span class="line">x0 = pointCoo(<span class="number">1</span>);</span><br><span class="line">y0 = pointCoo(<span class="number">2</span>);</span><br><span class="line">z0 = pointCoo(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">x1 = linePoint1Coo(<span class="number">1</span>);</span><br><span class="line">y1 = linePoint1Coo(<span class="number">2</span>);</span><br><span class="line">z1 = linePoint1Coo(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">x2 = linePoint2Coo(<span class="number">1</span>);</span><br><span class="line">y2 = linePoint2Coo(<span class="number">2</span>);</span><br><span class="line">z2 = linePoint2Coo(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">%求垂足</span></span><br><span class="line">a = (x0 - x1) * (x2 - x1) + (y0 - y1) * (y2 - y1) + (z0 - z1) * (z2 - z1);</span><br><span class="line">b = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1);</span><br><span class="line">k = a/b;</span><br><span class="line"></span><br><span class="line">xN = k * (x2 - x1) + x1;</span><br><span class="line">yN = k * (y2 - y1) + y1;</span><br><span class="line">zN = k * (z2 - z1) + z1;</span><br><span class="line"></span><br><span class="line">pointDropFeet = [xN;yN;zN];</span><br><span class="line"></span><br><span class="line"><span class="comment">%分析三种情况</span></span><br><span class="line"><span class="comment">%linePoint1:A;</span></span><br><span class="line"><span class="comment">%linePoint2:B;</span></span><br><span class="line"><span class="comment">%pointCoo:P;</span></span><br><span class="line"><span class="comment">%pointDropFeet:C;</span></span><br><span class="line">vectorAP = pointCoo-linePoint1Coo;</span><br><span class="line">vectorAB = linePoint2Coo-linePoint1Coo;</span><br><span class="line">vectorBP = pointCoo-linePoint2Coo; </span><br><span class="line">vectorCP = pointCoo-pointDropFeet; </span><br><span class="line"></span><br><span class="line">r = <span class="built_in">dot</span>(vectorAP,vectorAB)/norm(vectorAB)^<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(r&lt;=<span class="number">0</span>)<span class="comment">%r&lt;=0</span></span><br><span class="line">    minDis = norm(vectorAP);</span><br><span class="line"><span class="keyword">elseif</span>(r&gt;=<span class="number">1</span>)<span class="comment">%r&gt;=1</span></span><br><span class="line">    minDis = norm(vectorBP);</span><br><span class="line"><span class="keyword">else</span><span class="comment">%其它</span></span><br><span class="line">    minDis = norm(vectorCP);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<h6 id="求异面两条直线的公垂线和这两条直线的交点的位置"><a href="#求异面两条直线的公垂线和这两条直线的交点的位置" class="headerlink" title="求异面两条直线的公垂线和这两条直线的交点的位置"></a>求异面两条直线的公垂线和这两条直线的交点的位置</h6><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[m,n]</span> = <span class="title">linePerpCalFun</span><span class="params">(p1Vector,p2Vector,p3Vector,p4Vector)</span></span></span><br><span class="line"><span class="comment">%linePerpCalFun 输入异面的两条直线（p1p2和p3p4），点向量均为列向量</span></span><br><span class="line"><span class="comment">% 输出它们的公垂线交点在线段上的位置m,n</span></span><br><span class="line"><span class="comment">%https://blog.csdn.net/weixin_40332490/article/details/89133859</span></span><br><span class="line"></span><br><span class="line">d1Vector = p2Vector-p1Vector;</span><br><span class="line">d2Vector = p4Vector-p3Vector;</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">dot</span>(d1Vector,d2Vector);</span><br><span class="line">b = <span class="built_in">dot</span>(d1Vector,d1Vector);</span><br><span class="line">c = <span class="built_in">dot</span>(d2Vector,d2Vector);</span><br><span class="line">d = <span class="built_in">dot</span>(p3Vector-p1Vector,d1Vector);</span><br><span class="line">e = <span class="built_in">dot</span>(p3Vector-p1Vector,d2Vector);</span><br><span class="line"></span><br><span class="line">epsilon = <span class="number">1e-2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(a&lt;epsilon)<span class="comment">%两直线垂直</span></span><br><span class="line">    m = d/b;</span><br><span class="line">    n = -e/c;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    m = (a*e-c*d)/(a*a-b*c);</span><br><span class="line">    n = (b/a) * m - (d/a);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1069,17 +1054,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -1104,7 +1089,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
